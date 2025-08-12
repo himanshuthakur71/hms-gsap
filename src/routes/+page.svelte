@@ -6,6 +6,7 @@
 	import Info from '$lib/components/Info.svelte';
 	import Prallex from '$lib/components/Prallex.svelte';
 	import ExperinceSection from '$lib/components/ExperinceSection.svelte';
+	import FeedBack from '$lib/components/FeedBack.svelte';
 
 	gsap.registerPlugin(ScrollTrigger);
 
@@ -39,5 +40,7 @@
 <!-- Normal scroll section -->
 <Prallex />
 <ExperinceSection />
+
+<FeedBack />
 
 
