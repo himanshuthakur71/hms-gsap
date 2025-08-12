@@ -1,30 +1,40 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
+    import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+
+    gsap.registerPlugin(ScrollTrigger);
 
 	let container: HTMLDivElement;
-	let activeProject: (typeof projects)[0] | null = null;
+	let activeProject: (typeof projects)[0] | null = $state(null);
+
+
+    // Refs for animation
+	let projectNameEl: HTMLDivElement  = $state(null);
+	let projectImgEl: HTMLImageElement = $state(null);
 
 	const projects = [
 		{
 			id: 1,
 			name: 'Shriresume',
-			backgroundImage: 'download.png',
-			projectImage: 'logo-shriresume.webp',
+			backgroundImage: 'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaD_OXLh8WN-LVkLX_Brownvase_1.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
+			projectImage: 'download.png',
 			link: 'https://shriresume.com/'
 		},
 		{
 			id: 2,
 			name: 'Shrivivah',
-			backgroundImage: 'shrivivah_bg.png',
-			projectImage: 'shrivivah_logo.png',
+			backgroundImage: 'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaC9e-ydWJ-7kSdTn_pool_image-9.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
+			projectImage: 'shrivivah_bg.png',
 			link: 'https://srivivah.com/'
 		},
 		{
 			id: 3,
 			name: 'MCIL Society One',
-			backgroundImage: 'mcilsocietyone.png',
-			projectImage: 'mcilsocietyoneLogo.svg',
+			backgroundImage: 'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaC9OFSdWJ-7kSdJK_sc-image-9.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
+			projectImage: 'mcilsocietyone.png',
 			link: 'https://mcilsocietyone.com/'
 		}
 	];
@@ -66,9 +76,30 @@
 			if (container) containerObserver.unobserve(container);
 		});
 	});
+
+
+    
+	// 🔹 Equivalent to afterUpdate in runes mode
+	$effect(() => {
+		if (activeProject && projectNameEl && projectImgEl) {
+			// Animate project name
+			gsap.fromTo(
+				projectNameEl,
+				{ opacity: 0, x: -50 },
+				{ opacity: 1, x: 0, duration: 0.6, ease: 'power2.out' }
+			);
+
+			// Animate project image
+			gsap.fromTo(
+				projectImgEl,
+				{ opacity: 0, scale: 0.8, rotate: -5 },
+				{ opacity: 1, scale: 1, rotate: 0, duration: 0.8, ease: 'elastic.out(1, 0.6)' }
+			);
+		}
+	});
 </script>
 
-<div bind:this={container} class="relative min-h-screen w-full">
+<div bind:this={container} class="relative min-h-screen w-full" id="projects">
 	<!-- Parallax Sections -->
 	<div class="w-full">
 		{#each projects as project}
@@ -78,7 +109,7 @@
 			>
 				<div
 					class="absolute inset-0 bg-cover bg-fixed bg-center"
-					style={`background-image: url(/images/${project.backgroundImage});`}
+					style={`background-image: url(${project.backgroundImage});`}
 				></div>
 			</div>
 		{/each}
@@ -93,7 +124,7 @@
 			class="fixed inset-0 z-50 flex h-full min-h-screen w-full items-center justify-between px-4 transition-opacity duration-300"
 		>
 			<!-- Project name -->
-			<div class="absolute text-3xl font-semibold text-white">{activeProject.name}</div>
+			<div bind:this={projectNameEl} class="absolute text-3xl font-semibold text-white">{activeProject.name}</div>
 
 			<!-- Project image circle -->
 			<div
@@ -105,7 +136,8 @@
 						class="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-amber-200 p-4"
 					>
 						<img
-							src={`/images/${activeProject.backgroundImage}`}
+                            bind:this={projectImgEl}
+							src={`/images/${activeProject.projectImage}`}
 							alt={activeProject.name}
 							class=" flex h-full w-full rounded-full bg-white"
 						/>

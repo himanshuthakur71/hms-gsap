@@ -1,5 +1,23 @@
+<script lang="ts">
+	import { gsap } from 'gsap';
+	import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+	gsap.registerPlugin(ScrollToPlugin);
+
+	let projectSection: HTMLDivElement;
+
+	function scrollToProject() {
+		gsap.to(window, {
+			duration: 1.2,
+			scrollTo: { y: '#projects', offsetY: 0 },
+			ease: 'power2.inOut'
+		});
+	}
+</script>
+
+
 <header
-	class="fixed top-0 left-0 z-10 flex h-[72px] w-full items-center justify-between border-b border-[#0000001a]"
+	class="fixed top-0 left-0 z-[999] flex h-[72px] w-full items-center justify-between border-b border-[#0000001a]"
 >
 	<div class="flex h-full items-center">
 		<a
@@ -17,11 +35,12 @@
 	</div>
 
 	<div class="flex h-full items-center">
-		<a
-			href="/"
-			class="group relative flex h-full w-[146px] flex-col justify-center gap-2 overflow-hidden border-r border-l border-[#0000001a] px-4 py-2"
+		<button
+			type="button"
+			onclick={scrollToProject}
+			class="group relative flex h-full w-[146px] flex-col justify-center gap-2 overflow-hidden border-r border-l border-[#0000001a] px-4 py-2 cursor-pointer"
 		>
-			<span class="text-[11px] text-[#333335]">Projects</span>
+			<span class="text-[11px] text-[#333335] text-left">Projects</span>
 
 			<!-- Container for sliding effect -->
 			<span
@@ -71,13 +90,13 @@
 					</svg>
 				</span>
 			</span>
-		</a>
+		</button>
 
 		<a
 			href="/"
 			class="group relative flex h-full w-[146px] flex-col justify-center gap-2 overflow-hidden border-r border-[#0000001a] px-4 py-2"
 		>
-			<span class="text-[11px] text-[#333335]">Projects</span>
+			<span class="text-[11px] text-[#333335]">Who i'm</span>
 
 			<!-- Container for sliding effect -->
 			<span
@@ -133,7 +152,7 @@
 			href="/"
 			class="group relative flex h-full w-[146px] flex-col justify-center gap-2 overflow-hidden border-r border-[#0000001a] px-4 py-2"
 		>
-			<span class="text-[11px] text-[#333335]">Projects</span>
+			<span class="text-[11px] text-[#333335]">Get in touch</span>
 
 			<!-- Container for sliding effect -->
 			<span
