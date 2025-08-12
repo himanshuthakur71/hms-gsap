@@ -7,14 +7,15 @@
 
 	let sectionE5: HTMLElement;
 	let tl5: gsap.core.Timeline;
+	let fig1: HTMLElement | null = $state(null);
 
 	onMount(() => {
 		tl5 = gsap.timeline({
 			scrollTrigger: {
 				trigger: sectionE5,
 				start: 'top 100%', // when top of section hits 80% viewport
-				toggleActions: 'restart none restart none', // always run in both directions
-				markers: true // uncomment for debugging
+				toggleActions: 'restart none restart none' // always run in both directions
+				// markers: true // uncomment for debugging
 			}
 		});
 
@@ -47,16 +48,28 @@
 				'-=0.4'
 			)
 
-            .from(
+			.from(
 				sectionE5.querySelector('.p2'),
 				{
-					y: 20,
+					y: -20,
 					opacity: 0,
-					duration: 0.6,
+					duration: 0.8,
 					ease: 'power2.out'
 				},
-				'-=0.4'
+				'-=0.1'
+			)
+			.fromTo(
+				fig1,
+				{ opacity: 0, x: -200 },
+				{ opacity: 1, x: 0, duration: 0.4, ease: 'power3.out' }
+			)
+			
+			.fromTo(
+				sectionE5.querySelector('.fig2'),
+				{ opacity: 0, x: 200 },
+				{ opacity: 1, x: 0, duration: 0.4, ease: 'power3.out' }
 			);
+			
 	});
 
 	onDestroy(() => {
@@ -82,6 +95,17 @@
 					</li>
 				{/each}
 			</ul>
+
+			<figure
+				bind:this={fig1}
+				class=" fig1 mt-52 flex h-auto max-h-[520px] w-full max-w-[445px] items-center justify-center overflow-hidden rounded-2xl"
+			>
+				<img
+					src="https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaEABd7h8WN-LVklA_Home3.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90"
+					alt=""
+					class="h-full w-full"
+				/>
+			</figure>
 		</div>
 
 		<div class="w-full">
@@ -95,11 +119,21 @@
 				<span class="block"> amet consectetur</span>
 			</h3>
 
-			<p class="mt-8 max-w-[356px] text-[16px] text-[#00000080] p2">
+			<p class="p2 mt-8 max-w-[356px] text-[16px] text-[#00000080]">
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores quod, distinctio possimus
 				repellat pariatur facere similique? Deleniti aliquid pariatur, voluptate labore enim in,
 				officia earum totam quia odio iste id recusandae hic!
 			</p>
+
+			<figure
+				class=" fig2 mt-56 flex h-auto max-h-[1080px] w-full max-w-[910px] items-center justify-center overflow-hidden rounded-2xl"
+			>
+				<img
+					src="https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaEABMLh8WN-LVkk8_Home-4.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90"
+					alt=""
+					class="h-full w-full"
+				/>
+			</figure>
 		</div>
 	</div>
 </section>
