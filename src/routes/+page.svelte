@@ -5,6 +5,7 @@
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import Info from '$lib/components/Info.svelte';
 	import Prallex from '$lib/components/Prallex.svelte';
+	import ExperinceSection from '$lib/components/ExperinceSection.svelte';
 
 	gsap.registerPlugin(ScrollTrigger);
 
@@ -35,10 +36,8 @@
 	<Info />
 </section>
 
-<Prallex />
-
-
 <!-- Normal scroll section -->
-<!-- <section class="flex min-h-screen items-center justify-center bg-blue-200">
-	<h2 class="text-3xl font-bold">Another Section</h2>
-</section> -->
+<Prallex />
+<ExperinceSection />
+
+
