@@ -4,6 +4,7 @@
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import Info from '$lib/components/Info.svelte';
+	import Prallex from '$lib/components/Prallex.svelte';
 
 	gsap.registerPlugin(ScrollTrigger);
 
@@ -33,6 +34,9 @@
 	<Hero />
 	<Info />
 </section>
+
+<Prallex />
+
 
 <!-- Normal scroll section -->
 <!-- <section class="flex min-h-screen items-center justify-center bg-blue-200">
