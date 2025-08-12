@@ -1,0 +1,44 @@
+@import 'tailwindcss';
+
+
+@theme {
+  --brand-light: #f7f3ed;
+  --brand-dark: #333335;
+  --brand-ac-1: #b9bdab;
+  --brand-ac-2: #9e8f7b;
+  --brand-ac-3: #d5c8b0;
+  --brand-ac-4: #986c32;
+  --dark-7: rgba(0, 0, 0, .07);
+  --dark-10: rgba(0, 0, 0, .1);
+  --dark-15: rgba(0, 0, 0, .15);
+  --dark-20: rgba(0, 0, 0, .2);
+  --dark-30: rgba(0, 0, 0, .3);
+  --dark-40: rgba(0, 0, 0, .4);
+  --dark-50: rgba(0, 0, 0, .5);
+  --dark-70: rgba(0, 0, 0, .7);
+  --light-15: hsla(0, 0%, 100%, .15);
+  --light-30: hsla(0, 0%, 100%, .3);
+  --light-50: hsla(0, 0%, 100%, .5);
+  --light-20: hsla(0, 0%, 100%, .2);
+  --transparent: transparent;
+
+  --layout-columns-count: 12;
+  --layout-columns-gap: 1.0416666667vw;
+  --layout-margin: 2.0833333333vw;
+  --headerHeight: 9rem;
+
+  --primary-ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+
+
+
+body {
+  background-color: var(--brand-light);
+  width: 100%;
+  position: relative;
+  /* font-family: var(--font-SSS); */
+  font-weight: 400;
+  min-height: 100vh;
+  will-change: scroll-position;
+}
