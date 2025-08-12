@@ -3,86 +3,111 @@
 	import { fade } from 'svelte/transition';
 
 	let container: HTMLDivElement;
-	let showFixed = $state(false);
+	let activeProject: (typeof projects)[0] | null = null;
 
 	const projects = [
 		{
 			id: 1,
 			name: 'Shriresume',
-			backgroundImage: '/download.png',
-			projectImage: '/logo-shriresume.webp',
+			backgroundImage: 'download.png',
+			projectImage: 'logo-shriresume.webp',
 			link: 'https://shriresume.com/'
 		},
 		{
 			id: 2,
 			name: 'Shrivivah',
-			backgroundImage: '/shrivivah_bg.png',
-			projectImage: '/shrivivah_logo.png',
+			backgroundImage: 'shrivivah_bg.png',
+			projectImage: 'shrivivah_logo.png',
 			link: 'https://srivivah.com/'
 		},
 		{
-			id: 1,
+			id: 3,
 			name: 'MCIL Society One',
-			backgroundImage: '/mcilsocietyone.png',
-			projectImage: '/mcilsocietyoneLogo.svg',
+			backgroundImage: 'mcilsocietyone.png',
+			projectImage: 'mcilsocietyoneLogo.svg',
 			link: 'https://mcilsocietyone.com/'
 		}
 	];
 
 	onMount(() => {
-		const observer = new IntersectionObserver(
+		const sectionObserver = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
-					showFixed = entry.isIntersecting;
+					if (entry.isIntersecting) {
+						const id = Number(entry.target.getAttribute('data-id'));
+						activeProject = projects.find((p) => p.id === id) || null;
+					}
 				});
 			},
-			{
-				threshold: 0.2 // Show when at least 20% of the component is visible
-			}
+			{ threshold: 0.5 }
 		);
 
-		if (container) observer.observe(container);
+		const containerObserver = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (!entry.isIntersecting) {
+						activeProject = null; // Hide overlay when container is out of view
+					}
+				});
+			},
+			{ threshold: 0.05 }
+		);
+
+		document.querySelectorAll('.project-section').forEach((section) => {
+			sectionObserver.observe(section);
+		});
+
+		if (container) containerObserver.observe(container);
 
 		onDestroy(() => {
-			if (container) observer.unobserve(container);
+			document.querySelectorAll('.project-section').forEach((section) => {
+				sectionObserver.unobserve(section);
+			});
+			if (container) containerObserver.unobserve(container);
 		});
 	});
 </script>
 
 <div bind:this={container} class="relative min-h-screen w-full">
+	<!-- Parallax Sections -->
 	<div class="w-full">
 		{#each projects as project}
-			<div class="relative flex h-screen w-full items-center justify-center overflow-hidden">
+			<div
+				class="project-section relative flex h-screen w-full items-center justify-center overflow-hidden"
+				data-id={project.id}
+			>
 				<div
 					class="absolute inset-0 bg-cover bg-fixed bg-center"
-					style={`background-image: url(/images/${project?.backgroundImage});`}
+					style={`background-image: url(/images/${project.backgroundImage});`}
 				></div>
 			</div>
 		{/each}
 	</div>
 
+	<!-- Dark overlay -->
 	<div class="absolute inset-0 h-full w-full bg-black/70"></div>
 
-	{#if showFixed}
+	<!-- Fixed Overlay -->
+	{#if activeProject}
 		<div
 			class="fixed inset-0 z-50 flex h-full min-h-screen w-full items-center justify-between px-4 transition-opacity duration-300"
 		>
-			<div class=" text-3xl font-semibold text-white">Project Name</div>
+			<!-- Project name -->
+			<div class="absolute text-3xl font-semibold text-white">{activeProject.name}</div>
 
+			<!-- Project image circle -->
 			<div
 				transition:fade
-				class="flex size-[350px] items-center justify-center overflow-hidden rounded-full border-[2px] border-white p-2 transition-opacity duration-300"
+				class="mx-auto flex size-[350px] items-center justify-center overflow-hidden rounded-full border-[2px] border-white p-2 transition-opacity duration-300"
 			>
-				<div
-					class=" flex h-full w-full items-center justify-center rounded-full bg-transparent p-2"
-				>
+				<div class="flex h-full w-full items-center justify-center rounded-full bg-transparent p-2">
 					<figure
-						class=" h-full w-full items-center justify-center overflow-hidden rounded-full bg-red-50"
+						class="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-amber-200 p-4"
 					>
 						<img
-							src="https://fastly.picsum.photos/id/1015/1920/1080.jpg?hmac=M12OSFAxxiMvlGq9OtLXHs02DhW37fZ72Ui-DHvRI28"
-							alt=""
-							class=" h-full w-full"
+							src={`/images/${activeProject.backgroundImage}`}
+							alt={activeProject.name}
+							class=" flex h-full w-full rounded-full bg-white"
 						/>
 					</figure>
 				</div>
