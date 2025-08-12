@@ -23,8 +23,9 @@
 		tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: sectionEl,
-				start: 'top 80%',           // tweak to your taste
-				toggleActions: 'play none none reverse',
+				start: 'top 0%',           // tweak to your taste
+				// toggleActions: 'play none none reverse',
+				toggleActions: 'restart none restart none', // always run in both directions
 				// markers: true,          // uncomment for debugging
 			}
 		});
