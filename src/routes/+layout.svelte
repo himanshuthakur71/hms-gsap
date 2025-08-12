@@ -7,17 +7,28 @@
 
 	let { children } = $props();
 
-	
+	let visible = $state(true);
+
+	onMount(() => {
+		visible = true;
+
+		setTimeout(() => {
+			visible = false;
+		}, 3000);
+	});
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<Header />
-<main>
-	{@render children?.()}
-</main>
-
-
-<SignatureLoader />
+{#if visible}
+	<SignatureLoader />
+{:else}
+	<div class="w-full">
+		<Header />
+		<main>
+			{@render children?.()}
+		</main>
+	</div>
+{/if}
