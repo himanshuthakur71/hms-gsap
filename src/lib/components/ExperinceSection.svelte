@@ -1,5 +1,5 @@
 <section class=" h-full w-full bg-[#f7f3ed] py-32">
-	<div class="w-full px-4">
+	<div class="w-full px-4 grid grid-cols-2">
 		<div class="w-full">
 			<ul class=" w-full max-w-[355px]">
 				{#each Array(4) as _, i}
@@ -10,5 +10,9 @@
 				{/each}
 			</ul>
 		</div>
+
+        <div class="w-full">
+                <p> <span class=" flex justify-center items-center size-[5px]  rounded-full bg-[#9e8f7b]"></span> From idea to impact</p>
+        </div>
 	</div>
 </section>
