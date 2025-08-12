@@ -39,6 +39,35 @@
 		}
 	];
 
+	let sections: HTMLElement[] = [];
+
+	function observeSections() {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					const target:any = entry.target as HTMLElement;
+
+					// If the section is NOT intersecting and is the active one → hide
+					if (target.dataset.project === activeProject && !entry.isIntersecting) {
+						activeProject = null;
+					}
+
+					// If any *other* section is at least 20% visible → hide
+					if (
+						entry.isIntersecting &&
+						entry.intersectionRatio >= 0.2 &&
+						target.dataset.project !== activeProject
+					) {
+						activeProject = null;
+					}
+				});
+			},
+			{ threshold: [0.05, 0.2, 0.5, 1] } // multiple thresholds for flexibility
+		);
+
+		sections.forEach((section) => observer.observe(section));
+	}
+
 	onMount(() => {
 		const sectionObserver = new IntersectionObserver(
 			(entries) => {
@@ -60,7 +89,7 @@
 					}
 				});
 			},
-			{ threshold: 0.05 }
+			{ threshold: 0.2 }
 		);
 
 		document.querySelectorAll('.project-section').forEach((section) => {
