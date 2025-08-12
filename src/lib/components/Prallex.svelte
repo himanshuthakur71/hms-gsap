@@ -12,8 +12,8 @@
 
 
     // Refs for animation
-	let projectNameEl: HTMLDivElement  = $state(null);
-	let projectImgEl: HTMLImageElement = $state(null);
+	let projectNameEl: HTMLDivElement | null = $state(null);
+	let projectImgEl: HTMLImageElement | null = $state(null);
 
 	const projects = [
 		{
@@ -92,8 +92,8 @@
 			// Animate project image
 			gsap.fromTo(
 				projectImgEl,
-				{ opacity: 0, scale: 0.8, rotate: -5 },
-				{ opacity: 1, scale: 1, rotate: 0, duration: 0.8, ease: 'elastic.out(1, 0.6)' }
+				{ opacity: 0, scale: 0.1, rotate: -5 },
+				{ opacity: 1, scale: 1, rotate: 0, duration: 3, ease: 'elastic.out(1, 0.6)' }
 			);
 		}
 	});
