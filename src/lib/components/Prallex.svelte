@@ -34,6 +34,8 @@
 
 	let projectWapper: HTMLElement | any = $state(null);
 
+	let currentProject: any = $state(null);
+
 	function handleMove(e: MouseEvent) {
 		// console.log(e);
 		gsap.to(cursor, {
@@ -43,11 +45,29 @@
 			ease: 'back.out'
 		});
 	}
+
+	onMount(() => {
+		const handleClick = (e: MouseEvent) => {
+			const target = (e.target as HTMLElement).closest('.project-section');
+			if (target) {
+				const id = Number(target.dataset.id);
+				currentProject = projects.find((p) => p.id === id);
+				console.log('Current Project:', currentProject);
+			}
+		};
+
+		projectWapper.addEventListener('click', handleClick);
+
+		onDestroy(() => {
+			projectWapper.removeEventListener('click', handleClick);
+		});
+	});
 </script>
 
 <div
+	bind:this={projectWapper}
 	role="presentation"
-	class="relative min-h-screen w-full group"
+	class="group relative z-10 min-h-screen w-full"
 	id="projects"
 	onmousemove={handleMove}
 >
@@ -55,8 +75,10 @@
 	<div class="w-full">
 		{#each projects as project}
 			<div
+				role="presentation"
 				class="project-section relative flex min-h-[calc(100vh+72px)] w-full items-center justify-center overflow-hidden"
 				data-id={project.id}
+				onmouseenter={() => console.log('Current Project:', project)}
 			>
 				<div
 					class="absolute inset-0 bg-cover bg-fixed bg-center"
@@ -66,12 +88,12 @@
 		{/each}
 	</div>
 
-	<!-- Dark overlay -->
-	<div class="absolute inset-0 h-full w-full bg-black/70"></div>
+	<!-- Dark overlay (doesn't block clicks/hover anymore) -->
+	<div class="pointer-events-none absolute inset-0 z-[9] h-full w-full bg-black/70"></div>
 
 	<div
 		bind:this={cursor}
-		class=" fixed top-0 z-[9999]  flex-col items-center justify-center gap-2 hidden group-hover:flex"
+		class=" fixed top-0 z-[9999] hidden flex-col items-center justify-center gap-2 group-hover:flex"
 	>
 		<span class="flex size-[45px] items-center justify-center rounded-full bg-white">
 			<svg
@@ -93,4 +115,8 @@
 
 		<span class=" text-[16px] text-white">View Project</span>
 	</div>
+
+
+	
+	
 </div>
