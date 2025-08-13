@@ -10,14 +10,62 @@
 	let paraEl: HTMLParagraphElement;
 
 	const projects = [
-		{ id: 1, title: 'Project One', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.', projectImage: 'https://picsum.photos/600/400?random=1' },
-		{ id: 2, title: 'Project Two', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.', projectImage: 'https://picsum.photos/600/400?random=2' },
-		{ id: 3, title: 'Project Three', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.', projectImage: 'https://picsum.photos/600/400?random=3' },
-		{ id: 4, title: 'Project Four', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.', projectImage: 'https://picsum.photos/600/400?random=4' },
-		{ id: 5, title: 'Project Five', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.', projectImage: 'https://picsum.photos/600/400?random=5' },
-		{ id: 6, title: 'Project Six', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.', projectImage: 'https://picsum.photos/600/400?random=6' },
-		{ id: 7, title: 'Project Seven', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.', projectImage: 'https://picsum.photos/600/400?random=7' },
-		{ id: 8, title: 'Project Eight', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.', projectImage: 'https://picsum.photos/600/400?random=8' }
+		{
+			id: 1,
+			title: 'Project One',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=1'
+		},
+		{
+			id: 2,
+			title: 'Project Two',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=2'
+		},
+		{
+			id: 3,
+			title: 'Project Three',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=3'
+		},
+		{
+			id: 4,
+			title: 'Project Four',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=4'
+		},
+		{
+			id: 5,
+			title: 'Project Five',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=5'
+		},
+		{
+			id: 6,
+			title: 'Project Six',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=6'
+		},
+		{
+			id: 7,
+			title: 'Project Seven',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=7'
+		},
+		{
+			id: 8,
+			title: 'Project Eight',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=8'
+		}
 	];
 
 	onMount(() => {
@@ -136,34 +184,53 @@
 	};
 
 	// Click animation
-	function openProject(event: MouseEvent, project: typeof projects[0]) {
-		event.preventDefault();
-		const card = event.currentTarget as HTMLElement;
-		const bgDiv = card.querySelector('.bgImage') as HTMLElement;
-		const rect = bgDiv.getBoundingClientRect();
-
-		const clone = bgDiv.cloneNode(true) as HTMLElement;
-		clone.style.position = 'fixed';
-		clone.style.left = `${rect.left}px`;
-		clone.style.top = `${rect.top}px`;
-		clone.style.width = `${rect.width}px`;
-		clone.style.height = `${rect.height}px`;
-		clone.style.zIndex = '9999';
-		clone.style.backgroundSize = 'cover';
-		document.body.appendChild(clone);
-
-		gsap.to(clone, {
-			left: 0,
-			top: 0,
-			width: window.innerWidth,
-			height: window.innerHeight,
-			duration: 0.8,
-			ease: 'power3.inOut',
-			onComplete: () => {
-				goto(`/project/${project.id}`);
-			}
-		});
+function openProject(id: any) {
+	const project = projects.find(p => p.id === id);
+	if (!project) {
+		console.warn(`Project with id ${id} not found`);
+		return;
 	}
+
+	const projectEl = document.querySelector(`[data-id="${id}"]`);
+	if (!projectEl) {
+		console.warn(`Project element for id ${id} not found`);
+		return;
+	}
+
+	const imgEl = projectEl.querySelector('img');
+	if (!imgEl) {
+		console.warn(`Image inside project ${id} not found`);
+		return;
+	}
+
+	// Get original image position
+	const rect = imgEl.getBoundingClientRect();
+
+	// Create a clone for animation
+	const clone:any = imgEl.cloneNode(true);
+	clone.style.position = 'fixed';
+	clone.style.top = `${rect.top}px`;
+	clone.style.left = `${rect.left}px`;
+	clone.style.width = `${rect.width}px`;
+	clone.style.height = `${rect.height}px`;
+	clone.style.zIndex = '9999';
+	document.body.appendChild(clone);
+
+	// Animate to fullscreen
+	gsap.to(clone, {
+		top: 0,
+		left: 0,
+		width: window.innerWidth,
+		height: window.innerHeight,
+		duration: 0.8,
+		ease: 'power3.inOut',
+		onComplete: () => {
+			localStorage.setItem('transitionImage', project.projectImage);
+			localStorage.setItem('transitionFrom', JSON.stringify(rect));
+			goto(`/project/${project.id}`);
+		}
+	});
+}
 </script>
 
 <svelte:head>
@@ -183,28 +250,30 @@
 		</section>
 
 		<!-- Projects Section -->
-		<section class="mt-24 grid gap-y-16 gap-x-32 md:grid-cols-2" id="projectGrid">
+		<section class="mt-24 grid gap-x-32 gap-y-16 md:grid-cols-2" id="projectGrid">
 			{#each projects as project, i}
-				<a
-					href={`/project/${project.id}`}
+				<button
+					data-id={project.id}
 					class="group projcard relative block overflow-hidden rounded-xl shadow-lg"
 					class:leftCard={i % 2 === 0}
 					class:rightCard={i % 2 !== 0}
 					id={`projcard_${i}`}
 					onmouseenter={() => cardHover(`#projcard_${i}`)}
 					onmouseleave={() => cardHoverLeft(`#projcard_${i}`)}
-					onclick={(e) => openProject(e, project)}
+					onclick={() => openProject(project.id)}
 				>
-					<div
-						class="bgImage h-[320px] bg-cover bg-center"
-						style={`background-image: url('${project.projectImage}')`}
-					></div>
+					<!-- Use <img> instead of background so GSAP can clone & animate -->
+					<img
+						src={project.projectImage}
+						alt={project.title}
+						class="block h-[320px] w-full object-cover"
+					/>
 					<div class="absolute inset-0 bg-black/40 transition-colors group-hover:bg-black/60"></div>
 					<div class="absolute bottom-4 left-4 text-white">
 						<h3 class="text-2xl font-semibold">{project.title}</h3>
 						<p class="mt-1 max-w-xs text-sm">{project.description}</p>
 					</div>
-				</a>
+				</button>
 			{/each}
 		</section>
 	</div>
