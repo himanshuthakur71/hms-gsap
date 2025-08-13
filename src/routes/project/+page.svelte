@@ -122,7 +122,7 @@
 			scrollTrigger: {
 				trigger: '#projectGrid',
 				scroller: 'body',
-				markers: true,
+				// markers: true,
 				start: 'top 50%',
 				end: 'top 0',
 				scrub: 2
@@ -132,13 +132,13 @@
 		tl2.from('#projectGrid .projcard.leftCard', {
 			x: -300,
 			opacity: 0,
-			duration: 1
+			duration: 0.5
 		}, 'proAniCard');
 
 		tl2.from('#projectGrid .projcard.rightCard', {
 			x: 300,
 			opacity: 0,
-			duration: 1
+			duration: 0.5
 		}, 'proAniCard');
 	});
 
@@ -185,6 +185,21 @@
 
 		return element.querySelectorAll('div > span');
 	}
+
+
+	const cardHover = (selctor: string) => {
+		gsap.to(selctor,{
+			scale: 1.1
+
+		})
+	}
+
+	const cardHoverLeft = (selctor: string) => {
+		gsap.to(selctor,{
+			scale: 1
+
+		})
+	}
 </script>
 
 <svelte:head>
@@ -212,6 +227,9 @@
 					class="group projcard relative block overflow-hidden rounded-xl shadow-lg"
 					class:leftCard={i % 2 === 0}
 					class:rightCard={i % 2 !== 0}
+					id="projcard_{i}"
+					onmouseenter="{() => cardHover(`#projcard_${i}`)}"
+					onmouseleave="{()=> cardHoverLeft(`#projcard_${i}`)}"
 				>
 					<div
 						class="h-[320px] bg-cover bg-center"
