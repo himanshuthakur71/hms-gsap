@@ -5,7 +5,7 @@
 
 	gsap.registerPlugin(SplitText);
 
-	let heroText:any = $state(null);
+	let heroText: any = $state(null);
 
 	let split;
 
@@ -28,11 +28,16 @@
 				return split;
 			}
 		});
+
+		gsap.from('#heroImg', {
+			x: 700,
+			duration: 0.6
+		});
 	});
 </script>
 
-<section class="pannel-hozi min-h-screen w-full min-w-screen !bg-[#d5c8b0]">
-	<div class="grid w-full grid-cols-[1.2fr_0.8fr]">
+<section class="pannel-hozi min-h-screen w-full min-w-screen bg-brand-ac-3">
+	<div class="grid w-full grid-cols-1 lg:grid-cols-[1.2fr_0.8fr]">
 		<div bind:this={heroText} class="split w-full px-8 pt-32 pb-8">
 			<p class=" mb-4 text-5xl">
 				Hi, I’m <span class=" font-semibold text-amber-600">Himanshu Thakur</span>
@@ -58,9 +63,17 @@
 					creating scroll-driven motion effects, custom dashboards, or interactive 3D experiences.
 				</p>
 			</div>
+
+			<div class="mt-6 w-full">
+				<button
+					type="button"
+					class="flex h-[42px] cursor-pointer items-center justify-center rounded-[5px] bg-brand-ac-4 px-4 text-white hover:opacity-80"
+					>Download Resume</button
+				>
+			</div>
 		</div>
 		<div class="relative z-[10] flex h-full w-full items-center justify-center">
-			<figure class=" flex h-full w-full items-center justify-center">
+			<figure class=" flex h-full w-full items-center justify-center" id="heroImg">
 				<img src="/images/mani.JPG" alt="user" class="h-full min-h-screen w-full object-cover" />
 			</figure>
 		</div>

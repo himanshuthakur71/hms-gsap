@@ -90,7 +90,7 @@
 
 <section
 	bind:this={sectionEl}
-	class="pannel-hozi animate-section relative min-h-[calc(100vh_72px)] w-full min-w-screen !bg-[#f7f3ed]"
+	class="pannel-hozi animate-section relative min-h-[calc(100vh_72px)] w-full min-w-screen "
 >
 	<div class="grid h-full w-full grid-cols-[0.8fr_1.2fr]">
 		<div class="max-h-[calc(100vh_72px)] w-full overflow-hidden px-8 pt-32 pr-6 pb-8 text-black">
@@ -123,6 +123,7 @@
 				and precision to every project — ensuring the end product is fast, engaging, and built to
 				last.
 			</p>
+			
 		</div>
 
 		<div class="h-full w-full">
