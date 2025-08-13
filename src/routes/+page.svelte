@@ -3,10 +3,8 @@
 	import HorizontalScroll from '$lib/components/HorizontalScroll.svelte';
 	import Info from '$lib/components/Info.svelte';
 	import Prallex from '$lib/components/Prallex.svelte';
-	
+	import Process from '$lib/components/Process.svelte';
 </script>
-
-
 
 <HorizontalScroll>
 	<Hero />
@@ -15,6 +13,4 @@
 
 <!-- Normal scroll section -->
 <Prallex />
-
-
-
+<Process />
