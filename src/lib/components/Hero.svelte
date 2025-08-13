@@ -22,7 +22,7 @@
 					duration: 0.6,
 					yPercent: 100,
 					opacity: 0,
-					stagger: 0.1,
+					stagger: 0.3,
 					ease: 'expo.out'
 				});
 				return split;

@@ -32,7 +32,7 @@
 	<div class="w-full">
 		{#each projects as project}
 			<div
-				class="project-section relative flex h-screen w-full items-center justify-center overflow-hidden"
+				class="project-section relative flex min-h-[calc(100vh+72px)] w-full items-center justify-center overflow-hidden"
 				data-id={project.id}
 			>
 				<div
