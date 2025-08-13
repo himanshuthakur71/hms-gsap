@@ -1,91 +1,132 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 
+	let projectId: any;
+	let project;
+	let heroImageEl: HTMLDivElement;
 
-	let imageUrl: string | null = null;
-	let fromRect: DOMRect | null = null;
-	let imgEl: HTMLImageElement;
-	let projectId: string;
-
-	// Get project data (demo)
+	// Example demo projects
 	const projects = [
 		{
 			id: 1,
 			title: 'Project One',
-			description: 'A short description of project one.',
-			projectImage: 'https://picsum.photos/1200/800?random=1'
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=1'
 		},
 		{
 			id: 2,
 			title: 'Project Two',
-			description: 'Another exciting project.',
-			projectImage: 'https://picsum.photos/1200/800?random=2'
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=2'
+		},
+		{
+			id: 3,
+			title: 'Project Three',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=3'
+		},
+		{
+			id: 4,
+			title: 'Project Four',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=4'
+		},
+		{
+			id: 5,
+			title: 'Project Five',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=5'
+		},
+		{
+			id: 6,
+			title: 'Project Six',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=6'
+		},
+		{
+			id: 7,
+			title: 'Project Seven',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=7'
+		},
+		{
+			id: 8,
+			title: 'Project Eight',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=8'
 		}
 	];
 
-	let project: typeof projects[0] | undefined;
+		projectId = page.params.id;
+		project = projects.find((p) => p.id === Number(projectId));
+
 
 	onMount(() => {
-		projectId = page.params.id;
-		project = projects.find(p => p.id.toString() === projectId);
+		// Retrieve transition data from localStorage
+		const fromRect = JSON.parse(localStorage.getItem('transitionFrom') || 'null');
+		const imgUrl = localStorage.getItem('transitionImage');
 
-		imageUrl = localStorage.getItem('transitionImage');
-		const rectData = localStorage.getItem('transitionFrom');
-		if (rectData) {
-			fromRect = JSON.parse(rectData);
-		}
-
-		if (imageUrl && fromRect && imgEl) {
-			// Start image at previous page position
-			gsap.set(imgEl, {
+		if (fromRect && imgUrl && heroImageEl) {
+			// Start image in card's position/size
+			gsap.set(heroImageEl, {
 				position: 'absolute',
 				top: fromRect.top,
 				left: fromRect.left,
 				width: fromRect.width,
 				height: fromRect.height,
-				objectFit: 'cover'
+				objectFit: 'cover',
+				zIndex: 999
 			});
 
-			// Animate into place
-			gsap.to(imgEl, {
+			// Animate to fullscreen hero position
+			gsap.to(heroImageEl, {
 				top: 0,
 				left: 0,
-				width: '100%',
-				height: '60vh',
+				width: window.innerWidth,
+				height: 400,
 				duration: 0.8,
-				ease: 'power3.inOut'
+				ease: 'power3.inOut',
+				onComplete: () => {
+					gsap.set(heroImageEl, { clearProps: 'all' }); // reset inline styles
+				}
 			});
-		} else {
-			// Fallback if no transition data
-			if (imgEl) {
-				gsap.set(imgEl, {
-					width: '100%',
-					height: '60vh'
-				});
-			}
 		}
 	});
 </script>
 
-<div class="relative w-full overflow-hidden">
-	{#if imageUrl}
-		<img bind:this={imgEl} src={imageUrl} alt="Project_Image" class="rounded-b-xl" />
-	{:else if project}
-		<img bind:this={imgEl} src={project.projectImage} alt={project.title} class="rounded-b-xl" />
-	{/if}
+{#if project}
+	<div class="relative">
+		<!-- Large hero image -->
+		<div
+			bind:this={heroImageEl}
+			class="h-[400px] bg-cover bg-center"
+			style={`background-image: url('${project.projectImage}')`}
+		></div>
 
-	<!-- Overlay and Title -->
-	<div class="absolute bottom-6 left-6 text-white drop-shadow-lg">
-		<h1 class="text-4xl font-bold">{project?.title}</h1>
-		<p class="mt-2 max-w-lg">{project?.description}</p>
+		<!-- Content -->
+		<div class="p-6 max-w-4xl mx-auto">
+			<h1 class="text-4xl font-bold">{project.title}</h1>
+			<p class="mt-2 text-gray-600">{project.description}</p>
+
+			<button
+				class="mt-6 px-4 py-2 bg-gray-900 text-white rounded-lg"
+				on:click={() => goto('/')}
+			>
+				Back
+			</button>
+		</div>
 	</div>
-</div>
-
-<section class="p-6 max-w-4xl mx-auto">
-	<h2 class="text-2xl font-semibold mb-4">Project Details</h2>
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-	</p>
-</section>
+{:else}
+	<p class="p-6 text-center">Project not found.</p>
+{/if}
