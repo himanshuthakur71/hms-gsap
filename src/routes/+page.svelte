@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Cta from '$lib/components/CTA.svelte';
 	import FeedBack from '$lib/components/Feedback.svelte';
 	import Hero from '$lib/components/Hero.svelte';
 	import HorizontalScroll from '$lib/components/HorizontalScroll.svelte';
@@ -16,3 +17,5 @@
 <Prallex />
 <Process />
 <FeedBack />
+
+<Cta />
