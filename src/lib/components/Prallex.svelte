@@ -1,19 +1,5 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
-	import { fade } from 'svelte/transition';
-    import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-
-    gsap.registerPlugin(ScrollTrigger);
-
-	let container: HTMLDivElement;
-	let activeProject: (typeof projects)[0] | null = $state(null);
-
-
-    // Refs for animation
-	let projectNameEl: HTMLDivElement | null = $state(null);
-	let projectImgEl: HTMLImageElement | null = $state(null);
 
 	const projects = [
 		{
@@ -39,96 +25,9 @@
 		}
 	];
 
-	let sections: HTMLElement[] = [];
-
-	function observeSections() {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					const target:any = entry.target as HTMLElement;
-
-					// If the section is NOT intersecting and is the active one → hide
-					if (target.dataset.project === activeProject && !entry.isIntersecting) {
-						activeProject = null;
-					}
-
-					// If any *other* section is at least 20% visible → hide
-					if (
-						entry.isIntersecting &&
-						entry.intersectionRatio >= 0.2 &&
-						target.dataset.project !== activeProject
-					) {
-						activeProject = null;
-					}
-				});
-			},
-			{ threshold: [0.05, 0.2, 0.5, 1] } // multiple thresholds for flexibility
-		);
-
-		sections.forEach((section) => observer.observe(section));
-	}
-
-	onMount(() => {
-		const sectionObserver = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						const id = Number(entry.target.getAttribute('data-id'));
-						activeProject = projects.find((p) => p.id === id) || null;
-					}
-				});
-			},
-			{ threshold: 0.5 }
-		);
-
-		const containerObserver = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (!entry.isIntersecting) {
-						activeProject = null; // Hide overlay when container is out of view
-					}
-				});
-			},
-			{ threshold: 0.2 }
-		);
-
-		document.querySelectorAll('.project-section').forEach((section) => {
-			sectionObserver.observe(section);
-		});
-
-		if (container) containerObserver.observe(container);
-
-		onDestroy(() => {
-			document.querySelectorAll('.project-section').forEach((section) => {
-				sectionObserver.unobserve(section);
-			});
-			if (container) containerObserver.unobserve(container);
-		});
-	});
-
-
-    
-	// 🔹 Equivalent to afterUpdate in runes mode
-	$effect(() => {
-		if (activeProject && projectNameEl && projectImgEl) {
-			// Animate project name
-			gsap.fromTo(
-				projectNameEl,
-				{ opacity: 0, x: -50 },
-				{ opacity: 1, x: 0, duration: 0.6, ease: 'power2.out' }
-			);
-
-			// Animate project image
-			gsap.fromTo(
-				projectImgEl,
-				{ opacity: 0, scale: 0.1, rotate: -5 },
-				{ opacity: 1, scale: 1, rotate: 0, duration: 3, ease: 'elastic.out(1, 0.6)' }
-			);
-		}
-	});
 </script>
 
-<div bind:this={container} class="relative min-h-screen w-full" id="projects">
+<div  class="relative min-h-screen w-full" id="projects">
 	<!-- Parallax Sections -->
 	<div class="w-full">
 		{#each projects as project}
@@ -146,35 +45,4 @@
 
 	<!-- Dark overlay -->
 	<div class="absolute inset-0 h-full w-full bg-black/70"></div>
-
-	<!-- Fixed Overlay -->
-	{#if activeProject}
-		<div
-			class="fixed inset-0 z-50 flex h-full min-h-screen w-full items-center justify-between px-4 transition-opacity duration-300"
-		>
-			<!-- Project name -->
-			<div bind:this={projectNameEl} class="absolute text-3xl font-semibold text-white">{activeProject.name}</div>
-
-			<!-- Project image circle -->
-			<div
-				transition:fade
-				class="mx-auto flex size-[350px] items-center justify-center overflow-hidden rounded-full border-[2px] border-white p-2 transition-opacity duration-300"
-			>
-				<div class="flex h-full w-full items-center justify-center rounded-full bg-transparent p-2">
-					<figure
-						class="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-amber-200 p-4"
-					>
-						<img
-                            bind:this={projectImgEl}
-							src={`/images/${activeProject.projectImage}`}
-							alt={activeProject.name}
-							class=" flex h-full w-full rounded-full bg-white"
-						/>
-					</figure>
-				</div>
-			</div>
-
-			<div></div>
-		</div>
-	{/if}
 </div>

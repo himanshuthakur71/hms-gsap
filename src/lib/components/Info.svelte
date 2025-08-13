@@ -23,9 +23,9 @@
 		tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: sectionEl,
-				start: 'top 0%',           // tweak to your taste
+				start: 'top 0%', // tweak to your taste
 				// toggleActions: 'play none none reverse',
-				toggleActions: 'restart none restart none', // always run in both directions
+				toggleActions: 'restart none restart none' // always run in both directions
 				// markers: true,          // uncomment for debugging
 			}
 		});
@@ -40,24 +40,58 @@
 		});
 
 		// then animate the 3 cards with a little overlap
-		tl.to(cards, {
-			y: 0,
+		tl.to(
+			cards,
+			{
+				y: 0,
+				opacity: 1,
+				scale: 1,
+				duration: 0.8,
+				stagger: 0.12,
+				ease: 'power3.out'
+			},
+			'-=0.25'
+		);
+	});
+
+	const onMouseOver = (selector: string) => {
+		gsap.from(selector, {
+			opacity: 0,
+			scale: 0,
+			duration: 0.5
+		});
+
+		gsap.to(selector, {
 			opacity: 1,
 			scale: 1,
-			duration: 0.8,
-			stagger: 0.12,
-			ease: 'power3.out'
-		}, '-=0.25');
-	});
+			duration: 0.5
+		});
+	};
+
+	const onMouseLeave = (selector: string) => {
+		gsap.from(selector, {
+			opacity: 1,
+			scale: 1,
+			duration: 0.5
+		});
+
+		gsap.to(selector, {
+			opacity: 0,
+			scale: 0,
+			duration: 0.5
+		});
+	};
 
 	onDestroy(() => {
 		if (tl) tl.kill();
-		ScrollTrigger.getAll().forEach(st => st.kill());
+		ScrollTrigger.getAll().forEach((st) => st.kill());
 	});
 </script>
 
-
-<section  bind:this={sectionEl} class="pannel-hozi relative min-h-[calc(100vh_72px)] w-full min-w-screen !bg-[#f7f3ed] animate-section">
+<section
+	bind:this={sectionEl}
+	class="pannel-hozi animate-section relative min-h-[calc(100vh_72px)] w-full min-w-screen !bg-[#f7f3ed]"
+>
 	<div class="grid h-full w-full grid-cols-[0.8fr_1.2fr]">
 		<div class="max-h-[calc(100vh_72px)] w-full overflow-hidden px-8 pt-32 pr-6 pb-8 text-black">
 			<h2 class="animate-item mb-4 text-4xl font-semibold">About Me</h2>
@@ -94,12 +128,17 @@
 		<div class="h-full w-full">
 			<div class=" grid h-full w-full grid-cols-3 pt-[72px]">
 				<div
+					
 					class=" animate-card group relative h-full w-full border-l border-[#0000001a] text-black transition-all duration-300 hover:text-white"
+					onmouseenter="{() => onMouseOver('#img1')}"
+					onmouseleave="{() => onMouseLeave('#img1')}"
+					role="presentation"
 				>
 					<img
 						src="/images/aFzHU3fc4bHWivEC_Home_hero_1.avif"
 						alt=""
-						class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+						class="absolute inset-0 h-full w-full object-cover opacity-0"
+						id="img1"
 					/>
 					<div class="relative px-4">
 						<span class=" block text-[320px] font-bold">1</span>
@@ -111,11 +150,15 @@
 				</div>
 				<div
 					class="animate-card group relative h-full w-full border-l border-[#0000001a] text-black transition-all duration-300 hover:text-white"
+					onmouseenter="{() => onMouseOver('#img2')}"
+					onmouseleave="{() => onMouseLeave('#img2')}"
+					role="presentation"
 				>
 					<img
 						src="/images/aFzHU3fc4bHWivEC_Home_hero_1.avif"
 						alt=""
-						class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+						class="absolute inset-0 h-full w-full object-cover opacity-0"
+						id="img2"
 					/>
 					<div class="relative px-4">
 						<span class="block text-[320px] font-bold">2</span>
@@ -130,11 +173,15 @@
 
 				<div
 					class="animate-card group relative h-full w-full border-l border-[#0000001a] text-black transition-all duration-300 hover:text-white"
+					onmouseenter="{() => onMouseOver('#img3')}"
+					onmouseleave="{() => onMouseLeave('#img3')}"
+					role="presentation"
 				>
 					<img
 						src="/images/aFzHU3fc4bHWivEC_Home_hero_1.avif"
 						alt=""
-						class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+						class="absolute inset-0 h-full w-full object-cover opacity-0"
+						id="img3"
 					/>
 					<div class="relative px-4">
 						<span class=" block text-[320px] font-bold">3</span>
