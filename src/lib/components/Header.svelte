@@ -1,18 +1,33 @@
 <script lang="ts">
-	import { gsap } from 'gsap';
-	import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+	import gsap from 'gsap';
+	import { onDestroy, onMount } from 'svelte';
 
-	gsap.registerPlugin(ScrollToPlugin);
+	let tl001: any = $state(null);
 
-	let projectSection: HTMLDivElement;
+	onMount(() => {
 
-	function scrollToProject() {
-		gsap.to(window, {
-			duration: 1.2,
-			scrollTo: { y: '#projects', offsetY: 0 },
-			ease: 'power2.inOut'
+
+		tl001 = gsap.timeline();
+
+		tl001.to('.text-001 span', {
+			y: -25,
+			duration: 0.3,
+			stagger: 0.1 // small delay for second span
 		});
-	}
+
+		tl001.to('.icon-001 svg', {
+			y: -13,
+			duration: 0.3,
+			stagger: 0.1 // small delay for second span
+		});
+
+		tl001.pause();
+	});
+
+
+	onDestroy(() => {
+		tl001 = null
+	})
 </script>
 
 
@@ -35,86 +50,31 @@
 	</div>
 
 	<div class="flex h-full items-center">
-		<button
-			type="button"
-			onclick={scrollToProject}
-			class="group relative flex h-full w-[146px] flex-col justify-center gap-2 overflow-hidden border-r border-l border-[#0000001a] px-4 py-2 cursor-pointer"
-		>
-			<span class="text-[11px] text-[#333335] text-left">Projects</span>
-
-			<!-- Container for sliding effect -->
-			<span
-				class="relative flex h-[20px] items-center gap-1 overflow-hidden text-[14px] text-[#333335]"
-			>
-				<!-- Default state -->
-				<span
-					class="absolute left-0 flex w-full items-center justify-between gap-1 transition-all duration-300 group-hover:-translate-y-full"
-				>
-					<span>Work</span>
-
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="13"
-						height="13"
-						fill="none"
-						viewBox="0 0 13 13"
-						class="transition-transform duration-300 group-hover:translate-x-1"
-					>
-						<path
-							stroke="currentColor"
-							stroke-width="1.5"
-							d="m5.677 1 5.657 5.657m0 0-5.657 5.657m5.657-5.657H.02"
-						></path>
-					</svg>
-				</span>
-
-				<!-- Hover state -->
-				<span
-					class="absolute left-0 flex w-full translate-y-full items-center justify-between gap-1 transition-all duration-300 group-hover:translate-y-0"
-				>
-					<span>Work</span>
-
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="13"
-						height="13"
-						fill="none"
-						viewBox="0 0 13 13"
-						class="transition-transform duration-300 group-hover:translate-x-1"
-					>
-						<path
-							stroke="currentColor"
-							stroke-width="1.5"
-							d="m5.677 1 5.657 5.657m0 0-5.657 5.657m5.657-5.657H.02"
-						></path>
-					</svg>
-				</span>
-			</span>
-		</button>
 
 		<a
 			href="/"
-			class="group relative flex h-full w-[146px] flex-col justify-center gap-2 overflow-hidden border-r border-[#0000001a] px-4 py-2"
+			class="flex w-[146.4px] flex-col justify-between border-l border-dark-10 p-4"
+			onmouseenter={() => tl001.play()}
+			onmouseleave={() => tl001.reverse()}
 		>
-			<span class="text-[11px] text-[#333335]">Who i'm</span>
+			<span class="text-[11.2px] leading-[12.88px]">Projects</span>
+			<div class="flex items-center justify-between">
+				<!-- Text -->
+				<p class="text-001 grid h-[16.4px] overflow-hidden text-[14.4px]">
+					<span class="inline-block">Work</span>
+					<span class="inline-block">Work</span>
+				</p>
 
-			<!-- Container for sliding effect -->
-			<span
-				class="relative flex h-[20px] items-center gap-1 overflow-hidden text-[14px] text-[#333335]"
-			>
-				<!-- Default state -->
-				<span
-					class="absolute left-0 flex w-full items-center justify-between gap-1 transition-all duration-300 group-hover:-translate-y-full"
-				>
-					<span>Who we are</span>
-
+				<!-- Icon -->
+				<div class="icon-001 grid h-[13px] w-[13px] overflow-hidden text-brand-dark">
 					<svg
+						class="shrink-0"
+						id="f1"
 						xmlns="http://www.w3.org/2000/svg"
 						width="13"
 						height="13"
 						fill="none"
 						viewBox="0 0 13 13"
-						class="transition-transform duration-300 group-hover:translate-x-1"
 					>
 						<path
 							stroke="currentColor"
@@ -122,21 +82,14 @@
 							d="m5.677 1 5.657 5.657m0 0-5.657 5.657m5.657-5.657H.02"
 						></path>
 					</svg>
-				</span>
-
-				<!-- Hover state -->
-				<span
-					class="absolute left-0 flex w-full translate-y-full items-center justify-between gap-1 transition-all duration-300 group-hover:translate-y-0"
-				>
-					<span>About</span>
-
 					<svg
+						class="shrink-0"
+						id="f2"
 						xmlns="http://www.w3.org/2000/svg"
 						width="13"
 						height="13"
 						fill="none"
 						viewBox="0 0 13 13"
-						class="transition-transform duration-300 group-hover:translate-x-1"
 					>
 						<path
 							stroke="currentColor"
@@ -144,64 +97,8 @@
 							d="m5.677 1 5.657 5.657m0 0-5.657 5.657m5.657-5.657H.02"
 						></path>
 					</svg>
-				</span>
-			</span>
-		</a>
-
-		<a
-			href="/"
-			class="group relative flex h-full w-[146px] flex-col justify-center gap-2 overflow-hidden border-r border-[#0000001a] px-4 py-2"
-		>
-			<span class="text-[11px] text-[#333335]">Get in touch</span>
-
-			<!-- Container for sliding effect -->
-			<span
-				class="relative flex h-[20px] items-center gap-1 overflow-hidden text-[14px] text-[#333335]"
-			>
-				<!-- Default state -->
-				<span
-					class="absolute left-0 flex w-full items-center justify-between gap-1 transition-all duration-300 group-hover:-translate-y-full"
-				>
-					<span>Get in touch</span>
-
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="13"
-						height="13"
-						fill="none"
-						viewBox="0 0 13 13"
-						class="transition-transform duration-300 group-hover:translate-x-1"
-					>
-						<path
-							stroke="currentColor"
-							stroke-width="1.5"
-							d="m5.677 1 5.657 5.657m0 0-5.657 5.657m5.657-5.657H.02"
-						></path>
-					</svg>
-				</span>
-
-				<!-- Hover state -->
-				<span
-					class="absolute left-0 flex w-full translate-y-full items-center justify-between gap-1 transition-all duration-300 group-hover:translate-y-0"
-				>
-					<span>Contact</span>
-
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="13"
-						height="13"
-						fill="none"
-						viewBox="0 0 13 13"
-						class="transition-transform duration-300 group-hover:translate-x-1"
-					>
-						<path
-							stroke="currentColor"
-							stroke-width="1.5"
-							d="m5.677 1 5.657 5.657m0 0-5.657 5.657m5.657-5.657H.02"
-						></path>
-					</svg>
-				</span>
-			</span>
+				</div>
+			</div>
 		</a>
 	</div>
 </header>
