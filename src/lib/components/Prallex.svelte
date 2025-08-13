@@ -140,6 +140,10 @@
 			);
 		}
 	});
+
+
+
+
 </script>
 
 <div bind:this={container} class="relative min-h-screen w-full" id="projects">
@@ -195,7 +199,7 @@
 				>
 				<div class="flex h-full w-full items-center justify-center rounded-full bg-transparent p-2">
 					<figure
-						class="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-amber-200 p-4"
+						class="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-amber-200 p-2"
 					>
 						<img
 							bind:this={projectImgEl}
