@@ -141,12 +141,22 @@
 		}
 	});
 
-
-
-
+	const handleMouse = (e: any) => {
+		gsap.to('#cursor', {
+			x: e.x,
+			y: e.y,
+			duration: 0.4
+		});
+	};
 </script>
 
-<div bind:this={container} class="relative min-h-screen w-full" id="projects">
+<div
+	role="presentation"
+	bind:this={container}
+	class="group relative min-h-screen w-full"
+	id="projects"
+	onmousemove={handleMouse}
+>
 	<!-- Parallax Sections -->
 	<div class="w-full">
 		{#each projects as project}
@@ -214,4 +224,28 @@
 			<div></div>
 		</div>
 	{/if}
+
+	<div
+		id="cursor"
+		class=" fixed top-0 z-[999] hidden flex-col items-center justify-center gap-1 group-hover:flex"
+	>
+		<figure class=" flex size-[45px] items-center justify-center rounded-full bg-white">
+			<svg
+				class="shrink-0"
+				id="f2"
+				xmlns="http://www.w3.org/2000/svg"
+				width="13"
+				height="13"
+				fill="none"
+				viewBox="0 0 13 13"
+			>
+				<path
+					stroke="currentColor"
+					stroke-width="1.5"
+					d="m5.677 1 5.657 5.657m0 0-5.657 5.657m5.657-5.657H.02"
+				></path>
+			</svg>
+		</figure>
+		<span class=" text-[14px] font-thin text-white">View Project</span>
+	</div>
 </div>
