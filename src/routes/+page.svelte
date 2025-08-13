@@ -8,6 +8,10 @@
 	import Process from '$lib/components/Process.svelte';
 </script>
 
+<svelte:head>
+	<title>Home | HMS</title>
+</svelte:head>
+
 <HorizontalScroll>
 	<Hero />
 	<Info />

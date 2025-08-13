@@ -64,14 +64,19 @@
 				</p>
 			</div>
 
-			<div class="mt-32 w-full flex  gap-[32px]">
-				<button
-					type="button"
-					class="flex h-[42px] lg:h-[52] lg:text-[22px] cursor-pointer items-center justify-center rounded-[5px] bg-brand-ac-4 px-4 text-white hover:opacity-80"
-					>Download Resume</button
+			<div class="mt-32 flex w-full gap-[32px]">
+				<a
+					target="_blank"
+					href="https://www.linkedin.com/in/thakur-himanshu-pundir/"
+					class="flex h-[42px] cursor-pointer items-center justify-center rounded-[5px] bg-brand-ac-4 px-4 text-white hover:opacity-80 lg:h-[52] lg:text-[22px]"
+					>View Linkedin</a
 				>
 
-				<a href="/project" class="flex h-[42px] lg:h-[52] lg:text-[22px] cursor-pointer items-center justify-center rounded-[5px]  bg-brand-ac-2 px-4 text-white hover:opacity-80">View Projects</a>
+				<a
+					href="/project"
+					class="flex h-[42px] cursor-pointer items-center justify-center rounded-[5px] bg-brand-ac-2 px-4 text-white hover:opacity-80 lg:h-[52] lg:text-[22px]"
+					>View Projects</a
+				>
 			</div>
 		</div>
 		<div class="relative z-[10] flex h-full w-full items-center justify-center">

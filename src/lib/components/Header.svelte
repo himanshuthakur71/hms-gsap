@@ -52,7 +52,7 @@
 	<div class="flex h-full items-center">
 
 		<a
-			href="/"
+			href="/project"
 			class="flex w-[146.4px] flex-col justify-between border-l border-dark-10 p-4"
 			onmouseenter={() => tl001.play()}
 			onmouseleave={() => tl001.reverse()}
