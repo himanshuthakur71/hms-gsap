@@ -2,20 +2,33 @@
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import Header from '$lib/components/Header.svelte';
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import SignatureLoader from '$lib/components/SignatureLoader.svelte';
+	import { navigating } from '$app/state';
 
 	let { children } = $props();
 
 	let visible = $state(true);
 
+	// Show loader on initial mount
 	onMount(() => {
-		visible = true;
+		showLoader();
+	});
 
+	// Watch for navigation events
+	$effect(() => {
+		if (navigating.to) {
+			showLoader();
+		}
+	});
+
+	async function showLoader() {
+		visible = true;
+		await tick(); // ensures DOM updates before timeout
 		setTimeout(() => {
 			visible = false;
-		}, 3000);
-	});
+		}, 3000); // adjust duration as needed
+	}
 </script>
 
 <svelte:head>
