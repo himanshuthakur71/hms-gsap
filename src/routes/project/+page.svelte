@@ -8,8 +8,66 @@
 	let headingEl: HTMLHeadingElement;
 	let paraEl: HTMLParagraphElement;
 
+	const projects = [
+		{
+			id: 1,
+			title: 'Project One',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=1'
+		},
+		{
+			id: 2,
+			title: 'Project Two',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=2'
+		},
+		{
+			id: 3,
+			title: 'Project Three',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=3'
+		},
+		{
+			id: 4,
+			title: 'Project Four',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=4'
+		},
+		{
+			id: 5,
+			title: 'Project Five',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=5'
+		},
+		{
+			id: 6,
+			title: 'Project Six',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=6'
+		},
+		{
+			id: 7,
+			title: 'Project Seven',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=7'
+		},
+		{
+			id: 8,
+			title: 'Project Eight',
+			description:
+				'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae sapien nec magna viverra scelerisque.',
+			projectImage: 'https://picsum.photos/600/400?random=8'
+		}
+	];
 	onMount(() => {
-		// ==== Heading Split & Animation ====
+		// Heading animation
 		const chars = headingEl.textContent?.split('') ?? [];
 		headingEl.innerHTML = chars
 			.map(
@@ -29,34 +87,69 @@
 			ease: 'power3.out',
 			scrollTrigger: {
 				trigger: headingEl,
-				start: 'top 80%',
+				start: 'top 80%'
 			}
 		});
 
-		// ==== Paragraph: Line-by-Line Animation ====
+		// Paragraph line-by-line
 		const lines = splitIntoLines(paraEl);
 		gsap.from(lines, {
 			yPercent: 100,
+			opacity: 0,
 			duration: 0.8,
 			stagger: 0.15,
 			ease: 'power3.out',
 			scrollTrigger: {
 				trigger: paraEl,
-				start: 'top 85%',
+				start: 'top 85%'
 			}
 		});
+
+		// // Projects animation
+		// gsap.from(projectEls, {
+		// 	y: 60,
+		// 	opacity: 0,
+		// 	duration: 0.8,
+		// 	stagger: 0.2,
+		// 	ease: 'power3.out',
+		// 	scrollTrigger: {
+		// 		trigger: projectEls[0],
+		// 		start: 'top 80%'
+		// 	}
+		// });
+
+		let tl2 = gsap.timeline({
+			scrollTrigger: {
+				trigger: '#projectGrid',
+				scroller: 'body',
+				markers: true,
+				start: 'top 50%',
+				end: 'top 0',
+				scrub: 2
+			}
+		});
+
+		tl2.from('#projectGrid .projcard.leftCard', {
+			x: -300,
+			opacity: 0,
+			duration: 1
+		}, 'proAniCard');
+
+		tl2.from('#projectGrid .projcard.rightCard', {
+			x: 300,
+			opacity: 0,
+			duration: 1
+		}, 'proAniCard');
 	});
 
 	onDestroy(() => {
 		ScrollTrigger.getAll().forEach((t) => t.kill());
 	});
 
-	// Utility to wrap each visual line in spans
 	function splitIntoLines(element: HTMLElement) {
 		const text = element.innerHTML;
 		element.innerHTML = '';
 
-		// We create a temp div to measure
 		const words = text.split(' ');
 		let currentLine: HTMLElement | null = null;
 		let lines: HTMLElement[] = [];
@@ -72,9 +165,7 @@
 			testSpan.textContent = (i > 0 ? ' ' : '') + word;
 			currentLine.appendChild(testSpan);
 
-			// Check if this span caused a line break
 			if (currentLine.offsetHeight > testSpan.offsetHeight * 1.5) {
-				// New line
 				currentLine.removeChild(testSpan);
 				currentLine = document.createElement('div');
 				currentLine.className = 'overflow-hidden leading-relaxed';
@@ -84,7 +175,6 @@
 			}
 		});
 
-		// Wrap inner text in a span for animation
 		lines.forEach((line) => {
 			const inner = document.createElement('span');
 			inner.className = 'block';
@@ -103,13 +193,37 @@
 
 <section class="w-full">
 	<div class="px-4">
-		<section class="pt-32 w-full">
-			<h1 bind:this={headingEl} class="text-[256px] font-bold leading-none">
-				Work
-			</h1>
-			<p bind:this={paraEl} class="max-w-3xl mt-8 text-lg leading-relaxed">
-				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum suscipit officiis temporibus non explicabo in aliquid maiores ab nam quos architecto, voluptates nisi enim quod natus, asperiores culpa dolorem dignissimos. Perferendis, laborum, numquam ducimus repudiandae incidunt aliquid praesentium tempore autem quam consequuntur neque reiciendis iste?
+		<section class="w-full pt-32">
+			<h1 bind:this={headingEl} class="text-[256px] leading-none font-bold">Work</h1>
+			<p bind:this={paraEl} class="mt-8 max-w-3xl text-lg leading-relaxed">
+				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum suscipit officiis temporibus
+				non explicabo in aliquid maiores ab nam quos architecto, voluptates nisi enim quod natus,
+				asperiores culpa dolorem dignissimos. Perferendis, laborum, numquam ducimus repudiandae
+				incidunt aliquid praesentium tempore autem quam consequuntur neque reiciendis iste?
 			</p>
+		</section>
+
+		<!-- Projects Section -->
+		<section class="mt-24 grid gap-12 md:grid-cols-2" id="projectGrid">
+			{#each projects as project, i}
+				<a
+					href="#"
+					target="_blank"
+					class="group projcard relative block overflow-hidden rounded-xl shadow-lg"
+					class:leftCard={i % 2 === 0}
+					class:rightCard={i % 2 !== 0}
+				>
+					<div
+						class="h-[320px] bg-cover bg-center"
+						style={`background-image: url('${project.projectImage}')`}
+					></div>
+					<div class="absolute inset-0 bg-black/40 transition-colors group-hover:bg-black/60"></div>
+					<div class="absolute bottom-4 left-4 text-white">
+						<h3 class="text-2xl font-semibold">{project.title}</h3>
+						<p class="mt-1 max-w-xs text-sm">{project.description}</p>
+					</div>
+				</a>
+			{/each}
 		</section>
 	</div>
 </section>
