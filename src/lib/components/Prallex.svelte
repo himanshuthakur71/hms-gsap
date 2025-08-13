@@ -178,7 +178,7 @@
 	<!-- Fixed Overlay -->
 	{#if activeProject}
 		<div
-			class="fixed inset-0 z-50  h-full min-h-screen w-full items-center justify-between px-4 transition-opacity duration-300 hidden group-hover:flex"
+			class="fixed inset-0 z-50  h-full min-h-screen w-full items-center justify-between px-4 transition-opacity duration-300 flex"
 		>
 			<!-- Project name -->
 			<div bind:this={projectNameEl} class="absolute text-3xl font-semibold text-white">

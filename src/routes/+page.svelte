@@ -1,4 +1,5 @@
 <script lang="ts">
+	import FeedBack from '$lib/components/Feedback.svelte';
 	import Hero from '$lib/components/Hero.svelte';
 	import HorizontalScroll from '$lib/components/HorizontalScroll.svelte';
 	import Info from '$lib/components/Info.svelte';
@@ -14,3 +15,4 @@
 <!-- Normal scroll section -->
 <Prallex />
 <Process />
+<FeedBack />
