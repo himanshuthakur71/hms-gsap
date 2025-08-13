@@ -1,33 +1,56 @@
 <script lang="ts">
-
+	import { browser } from '$app/environment';
+	import gsap from 'gsap';
+	import { onDestroy, onMount } from 'svelte';
 
 	const projects = [
 		{
 			id: 1,
 			name: 'Shriresume',
-			backgroundImage: 'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaD_OXLh8WN-LVkLX_Brownvase_1.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
+			backgroundImage:
+				'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaD_OXLh8WN-LVkLX_Brownvase_1.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
 			projectImage: 'download.png',
 			link: 'https://shriresume.com/'
 		},
 		{
 			id: 2,
 			name: 'Shrivivah',
-			backgroundImage: 'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaC9e-ydWJ-7kSdTn_pool_image-9.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
+			backgroundImage:
+				'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaC9e-ydWJ-7kSdTn_pool_image-9.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
 			projectImage: 'shrivivah_bg.png',
 			link: 'https://srivivah.com/'
 		},
 		{
 			id: 3,
 			name: 'MCIL Society One',
-			backgroundImage: 'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaC9OFSdWJ-7kSdJK_sc-image-9.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
+			backgroundImage:
+				'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaC9OFSdWJ-7kSdJK_sc-image-9.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
 			projectImage: 'mcilsocietyone.png',
 			link: 'https://mcilsocietyone.com/'
 		}
 	];
 
+	let cursor: HTMLElement | any = $state(null);
+
+	let projectWapper: HTMLElement | any = $state(null);
+
+	function handleMove(e: MouseEvent) {
+		// console.log(e);
+		gsap.to(cursor, {
+			x: e.x,
+			y: e.y,
+			duration: 1,
+			ease: 'back.out'
+		});
+	}
 </script>
 
-<div  class="relative min-h-screen w-full" id="projects">
+<div
+	role="presentation"
+	class="relative min-h-screen w-full group"
+	id="projects"
+	onmousemove={handleMove}
+>
 	<!-- Parallax Sections -->
 	<div class="w-full">
 		{#each projects as project}
@@ -45,4 +68,29 @@
 
 	<!-- Dark overlay -->
 	<div class="absolute inset-0 h-full w-full bg-black/70"></div>
+
+	<div
+		bind:this={cursor}
+		class=" fixed top-0 z-[9999]  flex-col items-center justify-center gap-2 hidden group-hover:flex"
+	>
+		<span class="flex size-[45px] items-center justify-center rounded-full bg-white">
+			<svg
+				class="shrink-0"
+				id="f1"
+				xmlns="http://www.w3.org/2000/svg"
+				width="13"
+				height="13"
+				fill="none"
+				viewBox="0 0 13 13"
+			>
+				<path
+					stroke="currentColor"
+					stroke-width="1.5"
+					d="m5.677 1 5.657 5.657m0 0-5.657 5.657m5.657-5.657H.02"
+				></path>
+			</svg>
+		</span>
+
+		<span class=" text-[16px] text-white">View Project</span>
+	</div>
 </div>
