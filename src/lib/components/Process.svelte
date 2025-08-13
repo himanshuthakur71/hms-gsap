@@ -1,7 +1,87 @@
-<section class="w-full py-32">
+<script lang="ts">
+	import { onMount, onDestroy } from 'svelte';
+	import gsap from 'gsap';
+	import ScrollTrigger from 'gsap/ScrollTrigger';
+
+	gsap.registerPlugin(ScrollTrigger);
+
+	let sectionEl45: HTMLElement;
+	let imgWrap: HTMLElement;
+
+	onMount(() => {
+		if (!sectionEl45) return;
+
+		// Initial stagger animations for text + lists
+		const tl = gsap.timeline({
+			scrollTrigger: {
+				trigger: sectionEl45,
+				start: 'top 60%',
+				toggleActions: 'restart none restart none'
+				// markers: true
+			}
+		});
+
+		tl.from('#listElc li', {
+			x: -50,
+			opacity: 0,
+			duration: 0.5,
+			stagger: 0.15,
+			ease: 'power2.out'
+		})
+			.from('#containerEl .lineChild > div', {
+				yPercent: 100,
+				opacity: 0,
+				duration: 0.6,
+				stagger: 0.05,
+				ease: 'power3.out'
+			}, "-=0.3");
+
+		// Image reveal animation before parallax starts
+		const figures = imgWrap.querySelectorAll('figure img');
+
+		gsap.from(figures, {
+			scale: 1.05,
+			opacity: 0,
+			duration: 1,
+			ease: 'power2.out',
+			stagger: 0.2,
+			scrollTrigger: {
+				trigger: imgWrap,
+				start: 'top 80%',
+				toggleActions: 'play none none reverse'
+			}
+		});
+
+		// Parallax effect with smooth scrub
+		gsap.to(figures[0], {
+			yPercent: -15,
+			ease: 'none',
+			scrollTrigger: {
+				trigger: sectionEl45,
+				start: 'top bottom',
+				end: 'bottom top',
+				scrub: 1.2
+			}
+		});
+
+		gsap.to(figures[1], {
+			yPercent: 15,
+			ease: 'none',
+			scrollTrigger: {
+				trigger: sectionEl45,
+				start: 'top bottom',
+				end: 'bottom top',
+				scrub: 1.2
+			}
+		});
+	});
+</script>
+
+
+<section bind:this={sectionEl45} class="w-full py-32">
 	<div class="grid w-full grid-cols-1 px-4 lg:grid-cols-2">
 		<div class="w-full">
-			<ul class="w-full max-w-[356px] border-t-[1px] border-dark-10">
+			<ul class="w-full max-w-[356px] border-t-[1px] border-dark-10" id="listElc">
 				{#each Array(4) as _, i}
 					<li class="flex items-center gap-[25px] border-b-[1px] border-dark-10 py-[19px]">
 						<span
@@ -13,7 +93,7 @@
 				{/each}
 			</ul>
 		</div>
-		<div class="w-full">
+		<div class="w-full" id="containerEl">
 			<p class="flex items-center gap-[15px]">
 				<span class="flex size-[5px] items-center justify-center rounded-full bg-brand-ac-2"></span>
 				<span class="inline-block overflow-hidden text-[14.4px] text-brand-ac-2">
@@ -134,9 +214,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="grid w-full grid-cols-1 px-4 lg:grid-cols-2">
+	<div class="grid w-full grid-cols-1 px-4 lg:grid-cols-2" bind:this={imgWrap}>
 		<div class="w-full">
-			<figure class="flex h-[416px] w-[356px] items-center justify-center overflow-hidden rounded-lg">
+			<figure
+				class="flex h-[416px] w-[356px] items-center justify-center overflow-hidden rounded-lg"
+			>
 				<img
 					src="https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaEABd7h8WN-LVklA_Home3.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90"
 					alt="img"
@@ -145,8 +227,10 @@
 			</figure>
 		</div>
 
-        <div class="w-full">
-			<figure class="flex h-[864px] w-[728px] items-center justify-center overflow-hidden rounded-lg">
+		<div class="w-full">
+			<figure
+				class="flex h-[864px] w-[728px] items-center justify-center overflow-hidden rounded-lg"
+			>
 				<img
 					src="https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaEABMLh8WN-LVkk8_Home-4.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90"
 					alt="img"
@@ -156,3 +240,9 @@
 		</div>
 	</div>
 </section>
+
+<style>
+	figure img {
+		will-change: transform;
+	}
+</style>
