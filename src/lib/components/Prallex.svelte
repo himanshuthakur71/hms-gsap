@@ -1,84 +1,140 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import gsap from 'gsap';
-	import { onDestroy, onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
+	import { fade } from 'svelte/transition';
+    import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+
+    gsap.registerPlugin(ScrollTrigger);
+
+	let container: HTMLDivElement;
+	let activeProject: (typeof projects)[0] | null = $state(null);
+
+
+    // Refs for animation
+	let projectNameEl: HTMLDivElement | null = $state(null);
+	let projectImgEl: HTMLImageElement | null = $state(null);
 
 	const projects = [
 		{
 			id: 1,
 			name: 'Shriresume',
-			backgroundImage:
-				'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaD_OXLh8WN-LVkLX_Brownvase_1.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
+			backgroundImage: 'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaD_OXLh8WN-LVkLX_Brownvase_1.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
 			projectImage: 'download.png',
 			link: 'https://shriresume.com/'
 		},
 		{
 			id: 2,
 			name: 'Shrivivah',
-			backgroundImage:
-				'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaC9e-ydWJ-7kSdTn_pool_image-9.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
+			backgroundImage: 'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaC9e-ydWJ-7kSdTn_pool_image-9.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
 			projectImage: 'shrivivah_bg.png',
 			link: 'https://srivivah.com/'
 		},
 		{
 			id: 3,
 			name: 'MCIL Society One',
-			backgroundImage:
-				'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaC9OFSdWJ-7kSdJK_sc-image-9.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
+			backgroundImage: 'https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaC9OFSdWJ-7kSdJK_sc-image-9.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90',
 			projectImage: 'mcilsocietyone.png',
 			link: 'https://mcilsocietyone.com/'
 		}
 	];
 
-	let cursor: HTMLElement | any = $state(null);
+	let sections: HTMLElement[] = [];
 
-	let projectWapper: HTMLElement | any = $state(null);
+	function observeSections() {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					const target:any = entry.target as HTMLElement;
 
-	let currentProject: any = $state(null);
+					// If the section is NOT intersecting and is the active one → hide
+					if (target.dataset.project === activeProject && !entry.isIntersecting) {
+						activeProject = null;
+					}
 
-	function handleMove(e: MouseEvent) {
-		// console.log(e);
-		gsap.to(cursor, {
-			x: e.x,
-			y: e.y,
-			duration: 1,
-			ease: 'back.out'
-		});
+					// If any *other* section is at least 20% visible → hide
+					if (
+						entry.isIntersecting &&
+						entry.intersectionRatio >= 0.2 &&
+						target.dataset.project !== activeProject
+					) {
+						activeProject = null;
+					}
+				});
+			},
+			{ threshold: [0.05, 0.2, 0.5, 1] } // multiple thresholds for flexibility
+		);
+
+		sections.forEach((section) => observer.observe(section));
 	}
 
 	onMount(() => {
-		const handleClick = (e: MouseEvent) => {
-			const target = (e.target as HTMLElement).closest('.project-section');
-			if (target) {
-				const id = Number(target.dataset.id);
-				currentProject = projects.find((p) => p.id === id);
-				console.log('Current Project:', currentProject);
-			}
-		};
+		const sectionObserver = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						const id = Number(entry.target.getAttribute('data-id'));
+						activeProject = projects.find((p) => p.id === id) || null;
+					}
+				});
+			},
+			{ threshold: 0.5 }
+		);
 
-		projectWapper.addEventListener('click', handleClick);
+		const containerObserver = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (!entry.isIntersecting) {
+						activeProject = null; // Hide overlay when container is out of view
+					}
+				});
+			},
+			{ threshold: 0.2 }
+		);
+
+		document.querySelectorAll('.project-section').forEach((section) => {
+			sectionObserver.observe(section);
+		});
+
+		if (container) containerObserver.observe(container);
 
 		onDestroy(() => {
-			projectWapper.removeEventListener('click', handleClick);
+			document.querySelectorAll('.project-section').forEach((section) => {
+				sectionObserver.unobserve(section);
+			});
+			if (container) containerObserver.unobserve(container);
 		});
+	});
+
+
+    
+	// 🔹 Equivalent to afterUpdate in runes mode
+	$effect(() => {
+		if (activeProject && projectNameEl && projectImgEl) {
+			// Animate project name
+			gsap.fromTo(
+				projectNameEl,
+				{ opacity: 0, x: -50 },
+				{ opacity: 1, x: 0, duration: 0.6, ease: 'power2.out' }
+			);
+
+			// Animate project image
+			gsap.fromTo(
+				projectImgEl,
+				{ opacity: 0, scale: 0.1, rotate: -5 },
+				{ opacity: 1, scale: 1, rotate: 0, duration: 3, ease: 'elastic.out(1, 0.6)' }
+			);
+		}
 	});
 </script>
 
-<div
-	bind:this={projectWapper}
-	role="presentation"
-	class="group relative z-10 min-h-screen w-full"
-	id="projects"
-	onmousemove={handleMove}
->
+<div bind:this={container} class="relative min-h-screen w-full" id="projects">
 	<!-- Parallax Sections -->
 	<div class="w-full">
 		{#each projects as project}
 			<div
-				role="presentation"
-				class="project-section relative flex min-h-[calc(100vh+72px)] w-full items-center justify-center overflow-hidden"
+				class="project-section relative flex h-screen w-full items-center justify-center overflow-hidden"
 				data-id={project.id}
-				onmouseenter={() => console.log('Current Project:', project)}
 			>
 				<div
 					class="absolute inset-0 bg-cover bg-fixed bg-center"
@@ -88,35 +144,37 @@
 		{/each}
 	</div>
 
-	<!-- Dark overlay (doesn't block clicks/hover anymore) -->
-	<div class="pointer-events-none absolute inset-0 z-[9] h-full w-full bg-black/70"></div>
+	<!-- Dark overlay -->
+	<div class="absolute inset-0 h-full w-full bg-black/70"></div>
 
-	<div
-		bind:this={cursor}
-		class=" fixed top-0 z-[9999] hidden flex-col items-center justify-center gap-2 group-hover:flex"
-	>
-		<span class="flex size-[45px] items-center justify-center rounded-full bg-white">
-			<svg
-				class="shrink-0"
-				id="f1"
-				xmlns="http://www.w3.org/2000/svg"
-				width="13"
-				height="13"
-				fill="none"
-				viewBox="0 0 13 13"
+	<!-- Fixed Overlay -->
+	{#if activeProject}
+		<div
+			class="fixed inset-0 z-50 flex h-full min-h-screen w-full items-center justify-between px-4 transition-opacity duration-300"
+		>
+			<!-- Project name -->
+			<div bind:this={projectNameEl} class="absolute text-3xl font-semibold text-white">{activeProject.name}</div>
+
+			<!-- Project image circle -->
+			<div
+				transition:fade
+				class="mx-auto flex size-[350px] items-center justify-center overflow-hidden rounded-full border-[2px] border-white p-2 transition-opacity duration-300"
 			>
-				<path
-					stroke="currentColor"
-					stroke-width="1.5"
-					d="m5.677 1 5.657 5.657m0 0-5.657 5.657m5.657-5.657H.02"
-				></path>
-			</svg>
-		</span>
+				<div class="flex h-full w-full items-center justify-center rounded-full bg-transparent p-2">
+					<figure
+						class="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-amber-200 p-4"
+					>
+						<img
+                            bind:this={projectImgEl}
+							src={`/images/${activeProject.projectImage}`}
+							alt={activeProject.name}
+							class=" flex h-full w-full rounded-full bg-white"
+						/>
+					</figure>
+				</div>
+			</div>
 
-		<span class=" text-[16px] text-white">View Project</span>
-	</div>
-
-
-	
-	
+			<div></div>
+		</div>
+	{/if}
 </div>
