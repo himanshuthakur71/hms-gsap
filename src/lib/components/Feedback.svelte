@@ -63,7 +63,7 @@
 	</div>
 
 	<!-- Cards container -->
-	<div class="relative z-10 -mt-[80vh] flex flex-col items-center space-y-4">
+	<div class="relative z-10 -mt-[80vh] flex flex-col items-center space-y-">
 		<div bind:this={card1} class="max-w-3xl w-full bg-white text-black rounded-lg shadow-lg p-6">
 			<div class="flex gap-4">
 				<img src="https://images.prismic.io/miux-studio/aA3l0_IqRLdaBpID_client1.jpg?auto=format,compress" class="w-32 h-32 object-cover rounded-lg" />
@@ -98,3 +98,5 @@
 		</div>
 	</div>
 </section>
+
+
