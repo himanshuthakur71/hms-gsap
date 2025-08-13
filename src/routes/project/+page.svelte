@@ -129,17 +129,25 @@
 			}
 		});
 
-		tl2.from('#projectGrid .projcard.leftCard', {
-			x: -300,
-			opacity: 0,
-			duration: 0.5
-		}, 'proAniCard');
+		tl2.from(
+			'#projectGrid .projcard.leftCard',
+			{
+				x: -300,
+				opacity: 0,
+				duration: 0.5
+			},
+			'proAniCard'
+		);
 
-		tl2.from('#projectGrid .projcard.rightCard', {
-			x: 300,
-			opacity: 0,
-			duration: 0.5
-		}, 'proAniCard');
+		tl2.from(
+			'#projectGrid .projcard.rightCard',
+			{
+				x: 300,
+				opacity: 0,
+				duration: 0.5
+			},
+			'proAniCard'
+		);
 	});
 
 	onDestroy(() => {
@@ -186,20 +194,17 @@
 		return element.querySelectorAll('div > span');
 	}
 
-
 	const cardHover = (selctor: string) => {
-		gsap.to(selctor,{
+		gsap.to(selctor, {
 			scale: 1.1
-
-		})
-	}
+		});
+	};
 
 	const cardHoverLeft = (selctor: string) => {
-		gsap.to(selctor,{
+		gsap.to(selctor, {
 			scale: 1
-
-		})
-	}
+		});
+	};
 </script>
 
 <svelte:head>
@@ -219,17 +224,16 @@
 		</section>
 
 		<!-- Projects Section -->
-		<section class="mt-24 grid gap-12 md:grid-cols-2" id="projectGrid">
+		<section class="mt-24 grid gap-y-16 gap-x-32 md:grid-cols-2" id="projectGrid">
 			{#each projects as project, i}
 				<a
-					href="#"
-					target="_blank"
+					href="/project/{i}"
 					class="group projcard relative block overflow-hidden rounded-xl shadow-lg"
 					class:leftCard={i % 2 === 0}
 					class:rightCard={i % 2 !== 0}
 					id="projcard_{i}"
-					onmouseenter="{() => cardHover(`#projcard_${i}`)}"
-					onmouseleave="{()=> cardHoverLeft(`#projcard_${i}`)}"
+					onmouseenter={() => cardHover(`#projcard_${i}`)}
+					onmouseleave={() => cardHoverLeft(`#projcard_${i}`)}
 				>
 					<div
 						class="h-[320px] bg-cover bg-center"
