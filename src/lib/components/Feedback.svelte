@@ -17,7 +17,7 @@
 			scrollTrigger: {
 				trigger: sectionEl,
 				start: "top top",
-				end: "+=100%", // scroll distance
+				end: "+=70%", // scroll distance
 				pin: bgEl,
 				scrub: true
 			}
@@ -26,18 +26,19 @@
 		// Cards animate one by one
 		tl.from(card1, {
 			y: 200,
+          
 			opacity: 0,
 			rotate: -8,
 			duration: 1
 		})
-		.to(card1, { y: -50, duration: 1 }) // push up slightly when next comes
+		.to(card1, { y: -10, duration: 1 }) // push up slightly when next comes
 		.from(card2, {
 			y: 200,
 			opacity: 0,
 			rotate: 6,
 			duration: 1
 		})
-		.to([card1, card2], { y: -100, duration: 1 })
+		.to([card1, card2], { y: -20, duration: 1 })
 		.from(card3, {
 			y: 200,
 			opacity: 0,
@@ -49,7 +50,7 @@
 
 <section bind:this={sectionEl} class="relative bg-neutral-900 text-white">
 	<!-- Sticky / pinned background -->
-	<div bind:this={bgEl} class="h-screen w-full relative">
+	<div bind:this={bgEl} class=" h-full  min-h-screen w-full relative">
 		<img 
 			src="https://images.prismic.io/miux-studio/aDYL_idWJ-7kSmR-_Testimonial.jpg?auto=format,compress"
 			alt="Client Feedback"
@@ -62,7 +63,7 @@
 	</div>
 
 	<!-- Cards container -->
-	<div class="relative z-10 -mt-[50vh] flex flex-col items-center space-y-10 pb-[200vh]">
+	<div class="relative z-10 -mt-[80vh] flex flex-col items-center space-y-4">
 		<div bind:this={card1} class="max-w-3xl w-full bg-white text-black rounded-lg shadow-lg p-6">
 			<div class="flex gap-4">
 				<img src="https://images.prismic.io/miux-studio/aA3l0_IqRLdaBpID_client1.jpg?auto=format,compress" class="w-32 h-32 object-cover rounded-lg" />
