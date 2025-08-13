@@ -40,7 +40,7 @@
 
 
     <div class="w-full">
-        <figure class=" w-screen flex justify-center items-center h-screen projectImage">
+        <figure class=" w-screen flex justify-center items-center h-screen projectImage" data-flip-id="cover-{project?.id}">
             <img src="{project?.projectImage}" alt="peoject_img" class="w-full h-full">
         </figure>
     </div>

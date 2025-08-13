@@ -10,8 +10,6 @@
 	let headingEl: HTMLHeadingElement;
 	let paraEl: HTMLParagraphElement;
 
-
-
 	onMount(() => {
 		// Heading animation
 		const chars = headingEl.textContent?.split('') ?? [];
@@ -126,8 +124,6 @@
 	const cardHoverLeft = (selector: string) => {
 		gsap.to(selector, { scale: 1 });
 	};
-
-
 </script>
 
 <svelte:head>
@@ -149,7 +145,9 @@
 		<!-- Projects Section -->
 		<section class="mt-24 grid gap-x-32 gap-y-16 md:grid-cols-2" id="projectGrid">
 			{#each projects as project, i}
-				<a href="/project/{project.id}"
+				<button
+					onclick={() => goto(`/project/${project?.id}`)}
+					type="button"
 					data-id={project.id}
 					class="group projcard relative block overflow-hidden rounded-xl shadow-lg"
 					class:leftCard={i % 2 === 0}
@@ -159,17 +157,23 @@
 					onmouseleave={() => cardHoverLeft(`#projcard_${i}`)}
 				>
 					<!-- Use <img> instead of background so GSAP can clone & animate -->
-					         <figure class="flex justify-center items-center h-[320px] w-full projectImage">
-            <img src="{project?.projectImage}" 
-						alt={project.title} class=" h-full w-full object-cover">
-        </figure>
-					
+					<figure
+						class="projectImage flex h-[320px] w-full items-center justify-center"
+						data-flip-id="cover-{project.id}"
+					>
+						<img
+							src={project?.projectImage}
+							alt={project.title}
+							class=" h-full w-full object-cover"
+						/>
+					</figure>
+
 					<div class="absolute inset-0 bg-black/40 transition-colors group-hover:bg-black/60"></div>
 					<div class="absolute bottom-4 left-4 text-white">
 						<h3 class="text-2xl font-semibold">{project.title}</h3>
 						<p class="mt-1 max-w-xs text-sm">{project.description}</p>
 					</div>
-				</a>
+				</button>
 			{/each}
 		</section>
 	</div>

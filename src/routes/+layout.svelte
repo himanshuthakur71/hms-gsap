@@ -18,7 +18,7 @@
 	// Watch for navigation events
 	$effect(() => {
 		if (navigating.to) {
-			showLoader();
+			// showLoader();
 		}
 	});
 
