@@ -183,54 +183,7 @@
 		gsap.to(selector, { scale: 1 });
 	};
 
-	// Click animation
-function openProject(id: any) {
-	const project = projects.find(p => p.id === id);
-	if (!project) {
-		console.warn(`Project with id ${id} not found`);
-		return;
-	}
 
-	const projectEl = document.querySelector(`[data-id="${id}"]`);
-	if (!projectEl) {
-		console.warn(`Project element for id ${id} not found`);
-		return;
-	}
-
-	const imgEl = projectEl.querySelector('img');
-	if (!imgEl) {
-		console.warn(`Image inside project ${id} not found`);
-		return;
-	}
-
-	// Get original image position
-	const rect = imgEl.getBoundingClientRect();
-
-	// Create a clone for animation
-	const clone:any = imgEl.cloneNode(true);
-	clone.style.position = 'fixed';
-	clone.style.top = `${rect.top}px`;
-	clone.style.left = `${rect.left}px`;
-	clone.style.width = `${rect.width}px`;
-	clone.style.height = `${rect.height}px`;
-	clone.style.zIndex = '9999';
-	document.body.appendChild(clone);
-
-	// Animate to fullscreen
-	gsap.to(clone, {
-		top: 0,
-		left: 0,
-		width: window.innerWidth,
-		height: window.innerHeight,
-		duration: 0.8,
-		ease: 'power3.inOut',
-		onComplete: () => {
-			localStorage.setItem('transitionImage', project.projectImage);
-			localStorage.setItem('transitionFrom', JSON.stringify(rect));
-			goto(`/project/${project.id}`);
-		}
-	});
-}
 </script>
 
 <svelte:head>
@@ -252,7 +205,7 @@ function openProject(id: any) {
 		<!-- Projects Section -->
 		<section class="mt-24 grid gap-x-32 gap-y-16 md:grid-cols-2" id="projectGrid">
 			{#each projects as project, i}
-				<button
+				<a href="/project/{project.id}"
 					data-id={project.id}
 					class="group projcard relative block overflow-hidden rounded-xl shadow-lg"
 					class:leftCard={i % 2 === 0}
@@ -260,7 +213,6 @@ function openProject(id: any) {
 					id={`projcard_${i}`}
 					onmouseenter={() => cardHover(`#projcard_${i}`)}
 					onmouseleave={() => cardHoverLeft(`#projcard_${i}`)}
-					onclick={() => openProject(project.id)}
 				>
 					<!-- Use <img> instead of background so GSAP can clone & animate -->
 					<img
@@ -273,7 +225,7 @@ function openProject(id: any) {
 						<h3 class="text-2xl font-semibold">{project.title}</h3>
 						<p class="mt-1 max-w-xs text-sm">{project.description}</p>
 					</div>
-				</button>
+				</a>
 			{/each}
 		</section>
 	</div>
