@@ -31,7 +31,7 @@
 	});
 </script>
 
-<section class="panel min-h-screen w-full min-w-screen !bg-[#d5c8b0]">
+<section class="pannel-hozi min-h-screen w-full min-w-screen !bg-[#d5c8b0]">
 	<div class="grid w-full grid-cols-[1.2fr_0.8fr]">
 		<div bind:this={heroText} class="split w-full px-8 pt-32 pb-8">
 			<p class=" mb-4 text-5xl">

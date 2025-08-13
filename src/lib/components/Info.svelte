@@ -57,7 +57,7 @@
 </script>
 
 
-<section  bind:this={sectionEl} class="panel relative min-h-[calc(100vh_72px)] w-full min-w-screen !bg-[#f7f3ed] animate-section">
+<section  bind:this={sectionEl} class="pannel-hozi relative min-h-[calc(100vh_72px)] w-full min-w-screen !bg-[#f7f3ed] animate-section">
 	<div class="grid h-full w-full grid-cols-[0.8fr_1.2fr]">
 		<div class="max-h-[calc(100vh_72px)] w-full overflow-hidden px-8 pt-32 pr-6 pb-8 text-black">
 			<h2 class="animate-item mb-4 text-4xl font-semibold">About Me</h2>
