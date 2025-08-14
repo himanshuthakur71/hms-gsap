@@ -38,6 +38,6 @@
 	});
 </script>
 
-<section bind:this={horizontalSection} class="horizontal-section flex w-full">
+<section bind:this={horizontalSection} class="horizontal-section flex w-full flex-wrap lg:flex-nowrap">
 	{@render children()}
 </section>

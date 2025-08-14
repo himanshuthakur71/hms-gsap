@@ -105,7 +105,7 @@
 	bind:this={sectionEl}
 	class="pannel-hozi animate-section relative min-h-[calc(100vh_72px)] w-full min-w-screen "
 >
-	<div class="grid h-full w-full grid-cols-[0.8fr_1.2fr]">
+	<div class="grid h-full w-full  grid-cols-1 lg:grid-cols-[0.8fr_1.2fr]">
 		<div class="max-h-[calc(100vh_72px)] w-full overflow-hidden px-8 pt-32 pr-6 pb-8 text-black">
 			<h2 class="animate-item mb-4 text-4xl font-semibold">About Me</h2>
 
@@ -140,7 +140,7 @@
 		</div>
 
 		<div class="h-full w-full">
-			<div class=" grid h-full w-full grid-cols-3 pt-[72px]">
+			<div class=" grid h-full w-full grid-cols-1 lg:grid-cols-3 pt-[72px]">
 				<div
 					
 					class=" animate-card group relative h-full w-full border-l border-[#0000001a] text-black transition-all duration-300 hover:text-white"

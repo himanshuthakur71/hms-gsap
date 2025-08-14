@@ -198,7 +198,7 @@
 			<!-- Project image circle -->
 			<div
 				transition:fade
-				class="relative mx-auto flex size-[350px] items-center justify-center overflow-hidden rounded-full border-[2px] border-white p-12 transition-opacity duration-300"
+				class="relative mx-auto flex  size-[280px] md:size-[350px] items-center justify-center overflow-hidden rounded-full border-[2px] border-white p-12 transition-opacity duration-300"
 			>
 				<span class=" absolute top-[20px] z-10 text-[16px] font-semibold text-white"
 					>Fetured Work</span

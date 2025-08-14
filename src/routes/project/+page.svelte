@@ -162,7 +162,7 @@
 <section class="w-full">
 	<div class="px-4">
 		<section class="w-full pt-32">
-			<h1 bind:this={headingEl} class="text-[256px] leading-none font-bold">Work</h1>
+			<h1 bind:this={headingEl} class=" text-6xl lg:text-[256px] leading-none font-bold">Work</h1>
 			<p bind:this={paraEl} class="mt-8 max-w-3xl text-lg leading-relaxed">
 				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum suscipit officiis temporibus
 				non explicabo in aliquid maiores ab nam quos architecto, voluptates nisi enim quod natus,
@@ -172,7 +172,7 @@
 		</section>
 
 		<!-- Projects Section -->
-		<section class="mt-24 grid gap-x-32 gap-y-16 md:grid-cols-2" id="projectGrid">
+		<section class="mt-24 grid gap-x-32 gap-y-16  md:grid-cols-2" id="projectGrid">
 			{#each projects as project, i}
 				<div class="w-full">
 					<!-- <button type="button" onclick={() => goToProject(project?.id)}>

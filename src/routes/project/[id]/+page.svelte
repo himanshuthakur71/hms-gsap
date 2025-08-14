@@ -70,7 +70,7 @@
 
 <section class="w-full pt-[calc(38.4px+72px)]">
 	<div class="px-4">
-		<div class="grid w-full grid-cols-[500px_1fr] items-start">
+		<div class="grid w-full grid-cols-1 gap-y-6 lg:grid-cols-[500px_1fr] items-start">
 			<div>
 				<a
 					href="/project"
@@ -80,7 +80,7 @@
 				</a>
 			</div>
 
-			<div class="flex">
+			<div class="flex flex-wrap">
 				<div class="metaInfo w-full max-w-[290px] shrink-0">
 					<p class="mb-[20px] text-[20px] text-dark-40"><span>Client</span></p>
 					<p class="mb-[20px] overflow-hidden text-[20px]"><span>xxClient Namexx</span></p>
@@ -98,7 +98,7 @@
 			</div>
 		</div>
 
-		<div class="relative mt-[200px] mb-[40px] pl-[500px]">
+		<div class="relative mt-[200px] mb-[40px] lg:pl-[500px]">
 			<h1 class="projectTitle overflow-hidden text-[96px]">
 				<span>{project?.title}</span>
 			</h1>

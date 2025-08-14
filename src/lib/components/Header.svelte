@@ -42,7 +42,7 @@
 		>
 			<img src="/images/signature.svg" alt="" class=" h-[40px] w-[130px]" />
 		</a>
-		<div class="w-full max-w-[280px] px-4">
+		<div class="w-full max-w-[280px] px-4 hidden md:block">
 			<p class=" line-clamp-[115%] text-[11px] text-[#333335]">
 				Crafting sleek, high-performance web experiences with code and creativity.
 			</p>
