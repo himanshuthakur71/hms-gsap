@@ -37,7 +37,7 @@
 	});
 </script>
 
-<section class="relative flex h-screen items-center justify-center overflow-hidden">
+<section class="relative flex  h-full  min-h-[100vh] items-center justify-center overflow-hidden">
 	<!-- Background -->
 	<div class="absolute inset-0 overflow-hidden">
 		<img
