@@ -20,19 +20,10 @@
 				targets: '.projectImage',
 				duration: 1,
 				scale: false,
-				// position: 'fixed',
-				// width: '100vw',
-				// height: '100vh',
+				position: 'fixed',
+				width: '100vw',
+				height: '100vh',
 			})
-         // Flip.to(st, {
-         //    targets: '.projectImage',
-         //    position: 'static',
-         //    width: '100%',
-			// 	height: '100%',
-         //    duration:3,
-         //    scale: true,
-         //    delay: 6
-         // });
 		}
 	});
 </script>
