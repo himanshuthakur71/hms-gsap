@@ -77,12 +77,12 @@
 	</div>
 
 	<!-- Cards container -->
-	<div class="space-y- relative z-10 -mt-[80vh] flex flex-col items-center">
+	<div class="space-y-1 relative z-10 -mt-[50vh] lg:-mt-[80vh] flex flex-col items-center">
 		<div bind:this={card1} class="w-full max-w-3xl rounded-lg bg-white p-6 text-black shadow-lg">
 			<div class="flex gap-4">
 				<img
 					src="https://images.prismic.io/miux-studio/aA3l0_IqRLdaBpID_client1.jpg?auto=format,compress"
-					class="h-32 w-32 rounded-lg object-cover"
+					class="h-32 w-32 rounded-lg object-cover"  alt=""
 				/>
 				<div>
 					<h3 class="text-xl font-bold">
@@ -101,7 +101,7 @@
 			<div class="flex gap-4">
 				<img
 					src="https://images.prismic.io/miux-studio/aA3mTvIqRLdaBpIH_client2.jpg?auto=format,compress"
-					class="h-32 w-32 rounded-lg object-cover"
+					class="h-32 w-32 rounded-lg object-cover" alt=""
 				/>
 				<div>
 					<h3 class="text-xl font-bold">
@@ -120,7 +120,7 @@
 			<div class="flex gap-4">
 				<img
 					src="https://images.prismic.io/miux-studio/aA3mcvIqRLdaBpIJ_client3.jpg?auto=format,compress"
-					class="h-32 w-32 rounded-lg object-cover"
+					class="h-32 w-32 rounded-lg object-cover"  alt=""
 				/>
 				<div>
 					<h3 class="text-xl font-bold">
