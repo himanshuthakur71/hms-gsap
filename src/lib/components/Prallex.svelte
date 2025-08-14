@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	// import { gsap } from 'gsap';
+	// import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-	gsap.registerPlugin(ScrollTrigger);
+	// gsap.registerPlugin(ScrollTrigger);
 
 	let container: HTMLDivElement;
 	let activeProject: (typeof projects)[0] | null = $state(null);
@@ -71,7 +71,17 @@
 		sections.forEach((section) => observer.observe(section));
 	}
 
-	onMount(() => {
+	let gsap: any, ScrollTrigger: any;
+
+	onMount(async () => {
+		const gsapModule = await import('gsap');
+		const scrollTriggerModule = await import('gsap/ScrollTrigger');
+
+		gsap = gsapModule.default;
+		ScrollTrigger = scrollTriggerModule.default;
+
+		gsap.registerPlugin(ScrollTrigger);
+
 		const sectionObserver = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
@@ -178,7 +188,7 @@
 	<!-- Fixed Overlay -->
 	{#if activeProject}
 		<div
-			class="fixed inset-0 z-50  h-full min-h-screen w-full items-center justify-between px-4 transition-opacity duration-300 flex"
+			class="fixed inset-0 z-50 flex h-full min-h-screen w-full items-center justify-between px-4 transition-opacity duration-300"
 		>
 			<!-- Project name -->
 			<div bind:this={projectNameEl} class="absolute text-3xl font-semibold text-white">

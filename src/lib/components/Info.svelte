@@ -1,14 +1,27 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import gsap from 'gsap';
-	import ScrollTrigger from 'gsap/ScrollTrigger';
+	// import gsap from 'gsap';
+	// import ScrollTrigger from 'gsap/ScrollTrigger';
 
-	gsap.registerPlugin(ScrollTrigger);
+	// gsap.registerPlugin(ScrollTrigger);
 
 	let sectionEl: HTMLElement;
 	let tl: gsap.core.Timeline | undefined;
 
-	onMount(() => {
+
+	let gsap:any, ScrollTrigger:any;
+
+	onMount( async() => {
+
+		const gsapModule = await import('gsap');
+		const scrollTriggerModule = await import('gsap/ScrollTrigger');
+
+		gsap = gsapModule.default;
+		ScrollTrigger = scrollTriggerModule.default;
+
+		gsap.registerPlugin(ScrollTrigger);
+
+
 		if (!sectionEl) return;
 
 		// Select elements to animate

@@ -2,13 +2,15 @@
 	import { page } from '$app/state';
 	import { projects } from '$lib/jsons/projects.json';
 	import { error } from '@sveltejs/kit';
-	import gsap from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	// import gsap from 'gsap';
+	// import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { onMount } from 'svelte';
 
-	gsap.registerPlugin(ScrollTrigger);
+	// gsap.registerPlugin(ScrollTrigger);
 
 	let project = projects.find((p: any) => p.id == page.params.id);
+
+	let gsap:any, ScrollTrigger:any;
 
 	$effect(() => {
 		if (!project?.id) {
@@ -16,7 +18,16 @@
 		}
 	});
 
-	onMount(() => {
+	onMount( async() => {
+
+				const gsapModule = await import('gsap');
+		const scrollTriggerModule = await import('gsap/ScrollTrigger');
+
+		gsap = gsapModule.default;
+		ScrollTrigger = scrollTriggerModule.default;
+
+		gsap.registerPlugin(ScrollTrigger);
+		
 		// Initial meta info animation
 		gsap.from('.metaInfo', {
 			y: 40,

@@ -1,15 +1,25 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	// import { gsap } from 'gsap';
+	// import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 	let { children } = $props();
 
-	gsap.registerPlugin(ScrollTrigger);
+	// gsap.registerPlugin(ScrollTrigger);
 
 	let horizontalSection: any = $state(null);
 
-	onMount(() => {
+	let gsap, ScrollTrigger;
+
+	onMount(async () => {
+		const gsapModule = await import('gsap');
+		const scrollTriggerModule = await import('gsap/ScrollTrigger');
+
+		gsap = gsapModule.default;
+		ScrollTrigger = scrollTriggerModule.default;
+
+		gsap.registerPlugin(ScrollTrigger);
+
 		const container: any = horizontalSection;
 		const panels: any = gsap.utils.toArray('.pannel-hozi');
 

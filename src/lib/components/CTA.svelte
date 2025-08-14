@@ -1,11 +1,20 @@
-<script>
-	import gsap from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+<script lang="ts">
+	// import gsap from 'gsap';
+	// import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { onMount } from 'svelte';
 
-	gsap.registerPlugin(ScrollTrigger);
+	// gsap.registerPlugin(ScrollTrigger);
 
-	onMount(() => {
+	let gsap: any, ScrollTrigger: any;
+
+	onMount(async () => {
+		const gsapModule = await import('gsap');
+		const scrollTriggerModule = await import('gsap/ScrollTrigger');
+
+		gsap = gsapModule.default;
+		ScrollTrigger = scrollTriggerModule.default;
+
+		gsap.registerPlugin(ScrollTrigger);
 		// Parallax background
 		gsap.to('#cta-bg', {
 			yPercent: -20,

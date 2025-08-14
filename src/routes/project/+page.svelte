@@ -1,16 +1,26 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { goto } from '$app/navigation';
-	import gsap from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	// import gsap from 'gsap';
+	// import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import { projects } from '$lib/jsons/projects.json';
 
-	gsap.registerPlugin(ScrollTrigger);
+	// gsap.registerPlugin(ScrollTrigger);
 
 	let headingEl: HTMLHeadingElement;
 	let paraEl: HTMLParagraphElement;
 
-	onMount(() => {
+	let gsap: any, ScrollTrigger: any;
+
+	onMount(async () => {
+		const gsapModule = await import('gsap');
+		const scrollTriggerModule = await import('gsap/ScrollTrigger');
+
+		gsap = gsapModule.default;
+		ScrollTrigger = scrollTriggerModule.default;
+
+		gsap.registerPlugin(ScrollTrigger);
+
 		// Heading animation
 		const chars = headingEl.textContent?.split('') ?? [];
 		headingEl.innerHTML = chars
@@ -74,7 +84,7 @@
 	});
 
 	onDestroy(() => {
-		ScrollTrigger.getAll().forEach((t) => t.kill());
+		ScrollTrigger.getAll().forEach((t:any) => t.kill());
 	});
 
 	function splitIntoLines(element: HTMLElement) {
