@@ -89,8 +89,8 @@
 			</div>
 		</div>
 		<div class="relative z-[10] flex h-full w-full items-center justify-center pt-32 lg:pt-0 px-4 lg:px-0">
-			<figure class=" flex h-auto w-[320px] h-[320px] lg:h-full lg:w-full items-center justify-center" id="heroImg">
-				<img src="/images/mani.JPG" alt="user" class="h-full lg:min-h-screen w-full object-cover rounded-full" />
+			<figure class=" flex  w-[320px] h-[320px] lg:h-full lg:w-full items-center justify-center" id="heroImg">
+				<img src="/images/mani.JPG" alt="user" class="h-full lg:min-h-screen w-full object-cover rounded-full lg:rounded-none" />
 			</figure>
 		</div>
 	</div>
