@@ -44,7 +44,7 @@
 		});
 	});
 </script>
-{#if gsap}
+
 <section class="pannel-hozi lg:min-h-screen w-full lg:min-w-screen bg-brand-ac-3">
 	<div class="grid w-full grid-cols-1 lg:grid-cols-[1.2fr_0.8fr]">
 		<div bind:this={heroText} class="split w-full px-8 lg:pt-32 pb-8 lg:order-first order-last">
@@ -95,7 +95,7 @@
 		</div>
 	</div>
 </section>
-{/if}
+
 <style>
 	.split * {
 		will-change: transform;
