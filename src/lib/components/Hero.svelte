@@ -1,15 +1,24 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { gsap } from 'gsap';
-	import { SplitText } from 'gsap/SplitText';
+	// import { gsap } from 'gsap';
+	// import { SplitText } from 'gsap/SplitText';
 
-	gsap.registerPlugin(SplitText);
+	// gsap.registerPlugin(SplitText);
 
 	let heroText: any = $state(null);
 
 	let split;
 
-	onMount(() => {
+	let gsap: any, SplitText: any;
+
+	onMount(async () => {
+		const gsapModule = await import('gsap');
+		const splitTextModule = await import('gsap/SplitText');
+
+		gsap = gsapModule.default;
+		SplitText = splitTextModule.default;
+
+		gsap.registerPlugin(SplitText);
 		gsap.set(heroText, { opacity: 1 });
 
 		SplitText.create(heroText, {
