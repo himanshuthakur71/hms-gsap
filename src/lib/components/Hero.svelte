@@ -1,25 +1,25 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { gsap } from 'gsap';
-	import { SplitText } from 'gsap/SplitText';
+	// import { gsap } from 'gsap';
+	// import { SplitText } from 'gsap/SplitText';
 
-	gsap.registerPlugin(SplitText);
+	// gsap.registerPlugin(SplitText);
 
 	let heroText: any = $state(null);
 
 	let split;
 
-	// let gsap: any, SplitText: any;
+	let gsap: any, SplitText: any;
 
 	onMount(async () => {
-		// const gsapModule = await import('gsap');
-		// const splitTextModule = await import('gsap/SplitText');
+		const gsapModule = await import('gsap');
+		const splitTextModule = await import('gsap/SplitText');
 
-		// gsap = gsapModule.default;
-		// SplitText = splitTextModule.default;
+		gsap = gsapModule.default;
+		SplitText = splitTextModule.default;
 
-		// gsap.registerPlugin(SplitText);
-		// gsap.set(heroText, { opacity: 1 });
+		gsap.registerPlugin(SplitText);
+		gsap.set(heroText, { opacity: 1 });
 
 		SplitText.create(heroText, {
 			type: 'words,lines',
@@ -44,7 +44,7 @@
 		});
 	});
 </script>
-
+{#if gsap}
 <section class="pannel-hozi lg:min-h-screen w-full lg:min-w-screen bg-brand-ac-3">
 	<div class="grid w-full grid-cols-1 lg:grid-cols-[1.2fr_0.8fr]">
 		<div bind:this={heroText} class="split w-full px-8 lg:pt-32 pb-8 lg:order-first order-last">
@@ -95,7 +95,7 @@
 		</div>
 	</div>
 </section>
-
+{/if}
 <style>
 	.split * {
 		will-change: transform;
