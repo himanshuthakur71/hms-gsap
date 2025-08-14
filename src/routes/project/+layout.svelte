@@ -1,31 +1,28 @@
 <script lang="ts">
-	import { afterNavigate, beforeNavigate } from '$app/navigation';
-	import gsap from 'gsap';
-	import { Flip } from 'gsap/Flip';
+	// import { afterNavigate, beforeNavigate } from '$app/navigation';
+	// import gsap from 'gsap';
+	// import { Flip } from 'gsap/Flip';
 
-	gsap.registerPlugin(Flip);
+	// gsap.registerPlugin(Flip);
 
 	let { children } = $props();
 
-	let st: Flip.FlipState;
+	// let st: Flip.FlipState;
 
-	beforeNavigate(() => {
-		st = Flip.getState('.projectImage');
-	});
+	// beforeNavigate(() => {
+	// 	st = Flip.getState('.projectImage');
+	// });
 
-	afterNavigate(() => {
-		if (st) {
+	// afterNavigate(() => {
+	// 	if (st) {
       
-			Flip.from(st, {
-				targets: '.projectImage',
-				duration: 1,
-				scale: false,
-				position: 'fixed',
-				width: '100vw',
-				height: '100vh',
-			})
-		}
-	});
+	// 		Flip.from(st, {
+	// 			targets: '.projectImage',
+	// 			duration: 1,
+	// 			scale: false,
+	// 		})
+	// 	}
+	// });
 </script>
 
 {@render children?.()}

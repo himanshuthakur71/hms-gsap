@@ -18,31 +18,30 @@
 
 	onMount(() => {
 		// Initial meta info animation
-		gsap.from(".metaInfo", {
+		gsap.from('.metaInfo', {
 			y: 40,
 			opacity: 0,
 			duration: 1,
 			stagger: 0.15,
-			ease: "power3.out"
+			ease: 'power3.out'
 		});
 
 		// Title reveal animation
-		gsap.from(".projectTitle span", {
+		gsap.from('.projectTitle span', {
 			xPercent: -100,
 			duration: 1.2,
 			delay: 0.2,
-			ease: "power4.out"
+			ease: 'power4.out'
 		});
 
 		// Image entrance animation
-		// gsap.from(".projectImage img", {
-		// 	scale: 1.15,
-		// 	opacity: 0,
-		// 	filter: "blur(10px)",
-		// 	duration: 1.4,
-		// 	delay: 0.4,
-		// 	ease: "power2.out"
-		// });
+		gsap.from('.projectImage', {
+			yPercent: -100,
+			zIndex: '999',
+			duration: 2,
+			// delay: 0.4,
+			ease: 'power2.out'
+		});
 
 		// Scroll-triggered fade out of image
 		// gsap.to(".projectImage", {
@@ -60,47 +59,52 @@
 
 <section class="w-full pt-[calc(38.4px+72px)]">
 	<div class="px-4">
-		<div class="w-full items-start grid grid-cols-[500px_1fr]">
+		<div class="grid w-full grid-cols-[500px_1fr] items-start">
 			<div>
-				<a href="/project"
-					class="flex size-[48px] items-center justify-center rounded-full bg-white">
+				<a
+					href="/project"
+					class="flex size-[48px] items-center justify-center rounded-full bg-white"
+				>
 					X
 				</a>
 			</div>
 
 			<div class="flex">
-				<div class="w-full shrink-0 max-w-[290px] metaInfo">
+				<div class="metaInfo w-full max-w-[290px] shrink-0">
 					<p class="mb-[20px] text-[20px] text-dark-40"><span>Client</span></p>
-					<p class="mb-[20px] text-[20px] overflow-hidden"><span>xxClient Namexx</span></p>
+					<p class="mb-[20px] overflow-hidden text-[20px]"><span>xxClient Namexx</span></p>
 				</div>
 
-				<div class="w-full shrink-0 max-w-[290px] metaInfo">
+				<div class="metaInfo w-full max-w-[290px] shrink-0">
 					<p class="mb-[20px] text-[20px] text-dark-40"><span>Services</span></p>
-					<p class="mb-[20px] text-[20px] overflow-hidden"><span>Lorem, ipsum.</span></p>
+					<p class="mb-[20px] overflow-hidden text-[20px]"><span>Lorem, ipsum.</span></p>
 				</div>
 
-				<div class="w-full shrink-0 max-w-[290px] metaInfo">
+				<div class="metaInfo w-full max-w-[290px] shrink-0">
 					<p class="mb-[20px] text-[20px] text-dark-40"><span>Date</span></p>
-					<p class="mb-[20px] text-[20px] overflow-hidden"><span>Month YYYY</span></p>
+					<p class="mb-[20px] overflow-hidden text-[20px]"><span>Month YYYY</span></p>
 				</div>
 			</div>
 		</div>
 
-		<div class="pl-[500px] mt-[200px] relative mb-[40px]">
-			<h1 class="text-[96px] overflow-hidden projectTitle">
+		<div class="relative mt-[200px] mb-[40px] pl-[500px]">
+			<h1 class="projectTitle overflow-hidden text-[96px]">
 				<span>{project?.title}</span>
 			</h1>
 		</div>
 	</div>
 
 	<div class="w-full">
-		<figure class="projectImage flex h-screen w-screen items-center justify-center"
-			data-flip-id="cover-{project?.id}" data-project-id="123">
+		<figure
+			class="projectImage flex h-screen w-screen items-center justify-center"
+			data-flip-id="cover-{project?.id}"
+			data-project-id="123"
+		>
 			<img src={project?.projectImage} alt="project_img" class="h-full w-full object-cover" />
 		</figure>
 	</div>
 
-	<div class="px-4 mt-[140px]">
+	<div class="mt-[140px] px-4">
 		<p class="text-[20px] text-brand-ac-2">Project Overview</p>
 		<p class="text-[64px]"><span>{project?.description}</span></p>
 	</div>
