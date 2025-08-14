@@ -10,7 +10,7 @@
 
 	let project = projects.find((p: any) => p.id == page.params.id);
 
-	let gsap:any, ScrollTrigger:any;
+	let gsap: any, ScrollTrigger: any;
 
 	$effect(() => {
 		if (!project?.id) {
@@ -18,18 +18,30 @@
 		}
 	});
 
-	onMount( async() => {
-
-				const gsapModule = await import('gsap');
+	onMount(async () => {
+		const gsapModule = await import('gsap');
 		const scrollTriggerModule = await import('gsap/ScrollTrigger');
 
 		gsap = gsapModule.default;
 		ScrollTrigger = scrollTriggerModule.default;
 
 		gsap.registerPlugin(ScrollTrigger);
+
 		
+		let tl2Y6 = gsap.timeline()
+
+
+		// Image entrance animation
+		tl2Y6.from('.projectImage', {
+			yPercent: -100,
+			zIndex: '999',
+			duration: 2,
+			// delay: 0.4,
+			ease: 'power2.out'
+		});
+
 		// Initial meta info animation
-		gsap.from('.metaInfo', {
+		tl2Y6.from('.metaInfo', {
 			y: 40,
 			opacity: 0,
 			duration: 1,
@@ -38,21 +50,14 @@
 		});
 
 		// Title reveal animation
-		gsap.from('.projectTitle span', {
-			xPercent: -100,
+		tl2Y6.from('#projectTitle', {
+			y: 100,
 			duration: 1.2,
 			delay: 0.2,
 			ease: 'power4.out'
 		});
 
-		// Image entrance animation
-		gsap.from('.projectImage', {
-			yPercent: -100,
-			zIndex: '999',
-			duration: 2,
-			// delay: 0.4,
-			ease: 'power2.out'
-		});
+		
 
 		// Scroll-triggered fade out of image
 		// gsap.to(".projectImage", {
@@ -70,7 +75,7 @@
 
 <section class="w-full pt-[calc(38.4px+72px)]">
 	<div class="px-4">
-		<div class="grid w-full grid-cols-1 gap-y-6 lg:grid-cols-[500px_1fr] items-start">
+		<div class="grid w-full grid-cols-1 items-start gap-y-6 lg:grid-cols-[500px_1fr]">
 			<div>
 				<a
 					href="/project"
@@ -99,8 +104,8 @@
 		</div>
 
 		<div class="relative mt-[200px] mb-[40px] lg:pl-[500px]">
-			<h1 class="projectTitle overflow-hidden text-[96px]">
-				<span>{project?.title}</span>
+			<h1 class="projectTitle overflow-hidden text-[96px] inline-block">
+				<span id="projectTitle">{project?.title}</span>
 			</h1>
 		</div>
 	</div>
@@ -116,7 +121,7 @@
 	</div>
 
 	<div class="mt-[140px] px-4">
-		<p class="text-[20px] text-brand-ac-2">Project Overview</p>
-		<p class="text-[64px]"><span>{project?.description}</span></p>
+		<p class="text-[18px] lg:text-[20px] text-brand-ac-2">Project Overview</p>
+		<p class="text-[32px] lg:text-[64px]"><span>{project?.description}</span></p>
 	</div>
 </section>

@@ -62,7 +62,7 @@
 		</h1>
 
 		<a
-			href="/contact"
+			href="#!"
 			class="mt-8 inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 font-semibold text-black opacity-0 shadow-lg transition-opacity hover:bg-gray-200"
 			id="cta-button"
 		>
