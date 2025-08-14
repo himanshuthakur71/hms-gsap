@@ -188,7 +188,7 @@
 						onclick={() => goToProject(project?.id)}
 						type="button"
 						data-id={project.id}
-						class="group projcard relative block overflow-hidden rounded-xl shadow-lg"
+						class="group projcard relative block overflow-hidden rounded-xl shadow-lg w-full"
 						class:leftCard={i % 2 === 0}
 						class:rightCard={i % 2 !== 0}
 						id={`projcard_${i}`}
