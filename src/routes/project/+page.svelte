@@ -135,7 +135,7 @@
 				duration: 1.4,
 				// width: '100vw',
 				// hight: '100vh',
-				yPercent: -20,
+				yPercent: -20
 				// delay: 0.4,
 				// ease: 'power2.out'
 			})
@@ -165,13 +165,44 @@
 		<section class="mt-24 grid gap-x-32 gap-y-16 md:grid-cols-2" id="projectGrid">
 			{#each projects as project, i}
 				<div class="w-full">
-					<button type="button" onclick={() => goToProject(project?.id)}>
+					<!-- <button type="button" onclick={() => goToProject(project?.id)}>
 						<img
 							src={project?.projectImage}
 							alt={project.title}
 							class=" h-full w-full object-cover"
 							id="projectImage_{project?.id}"
 						/>
+					</button> -->
+
+					<button
+						onclick={() => goToProject(project?.id)}
+						type="button"
+						data-id={project.id}
+						class="group projcard relative block overflow-hidden rounded-xl shadow-lg"
+						class:leftCard={i % 2 === 0}
+						class:rightCard={i % 2 !== 0}
+						id={`projcard_${i}`}
+					>
+						<!-- Use <img> instead of background so GSAP can clone & animate -->
+						<figure
+							class="projectImage flex h-[320px] w-full items-center justify-center"
+							data-flip-id="cover-{project.id}"
+						>
+							<img
+								src={project?.projectImage}
+								alt={project.title}
+								class=" h-full w-full object-cover"
+								id="projectImage_{project?.id}"
+							/>
+						</figure>
+
+						<div
+							class="absolute inset-0 bg-black/40 transition-colors group-hover:bg-black/60"
+						></div>
+						<div class="absolute bottom-4 left-4 text-white">
+							<h3 class="text-2xl font-semibold">{project.title}</h3>
+							<p class="mt-1 max-w-xs text-sm">{project.description}</p>
+						</div>
 					</button>
 				</div>
 			{/each}
