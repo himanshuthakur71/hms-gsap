@@ -228,7 +228,7 @@
 	<div class="grid w-full grid-cols-1 px-4 lg:grid-cols-2" bind:this={imgWrap}>
 		<div class="w-full">
 			<figure
-				class="flex h-[416px] w-[356px] items-center justify-center overflow-hidden rounded-lg"
+				class="flex w-[320px] h-auto lg:h-[416px] lg:w-[356px] items-center justify-center overflow-hidden rounded-lg"
 			>
 				<img
 					src="https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaEABd7h8WN-LVklA_Home3.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90"
@@ -240,7 +240,7 @@
 
 		<div class="w-full">
 			<figure
-				class="flex h-[864px] w-[728px] items-center justify-center overflow-hidden rounded-lg"
+				class="flex w-[320px] h-auto lg:h-[864px] lg:w-[728px] items-center justify-center overflow-hidden rounded-lg"
 			>
 				<img
 					src="https://madeinuxstudio.com/_next/image?url=https%3A%2F%2Fimages.prismic.io%2Fmiux-studio%2FaEABMLh8WN-LVkk8_Home-4.jpg%3Fauto%3Dformat%2Ccompress&w=1920&q=90"
