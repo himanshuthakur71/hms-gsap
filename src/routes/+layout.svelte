@@ -4,7 +4,7 @@
 	import Header from '$lib/components/Header.svelte';
 	import { onMount, tick } from 'svelte';
 	import SignatureLoader from '$lib/components/SignatureLoader.svelte';
-	import { navigating } from '$app/state';
+	import { navigating, page } from '$app/state';
 
 	let { children } = $props();
 
@@ -17,8 +17,9 @@
 
 	// Watch for navigation events
 	$effect(() => {
-		if (navigating.to) {
-			// showLoader();
+		// $inspect(navigating);
+		if (navigating.to && navigating?.to?.route?.id != '/project/[id]') {
+			showLoader();
 		}
 	});
 

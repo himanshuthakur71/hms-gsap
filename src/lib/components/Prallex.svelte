@@ -44,6 +44,10 @@
 
 	let sections: HTMLElement[] = [];
 
+	let sectionObserver :any;
+
+	let containerObserver:any;
+
 	function observeSections() {
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -82,7 +86,7 @@
 
 		gsap.registerPlugin(ScrollTrigger);
 
-		const sectionObserver = new IntersectionObserver(
+		sectionObserver = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
@@ -94,7 +98,7 @@
 			{ threshold: 0.5 }
 		);
 
-		const containerObserver = new IntersectionObserver(
+		containerObserver = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
 					if (!entry.isIntersecting) {
@@ -111,13 +115,15 @@
 
 		if (container) containerObserver.observe(container);
 
-		onDestroy(() => {
+		
+	});
+
+	onDestroy(() => {
 			document.querySelectorAll('.project-section').forEach((section) => {
 				sectionObserver.unobserve(section);
 			});
 			if (container) containerObserver.unobserve(container);
 		});
-	});
 
 	// 🔹 Equivalent to afterUpdate in runes mode
 	$effect(() => {
