@@ -26,7 +26,7 @@
 			linesClass: 'line',
 			autoSplit: true,
 			mask: 'lines',
-			onSplit: (self) => {
+			onSplit: (self:any) => {
 				split = gsap.from(self.lines, {
 					duration: 0.6,
 					yPercent: 100,
@@ -45,9 +45,9 @@
 	});
 </script>
 
-<section class="pannel-hozi min-h-screen w-full min-w-screen bg-brand-ac-3">
+<section class="pannel-hozi lg:min-h-screen w-full lg:min-w-screen bg-brand-ac-3">
 	<div class="grid w-full grid-cols-1 lg:grid-cols-[1.2fr_0.8fr]">
-		<div bind:this={heroText} class="split w-full px-8 pt-32 pb-8">
+		<div bind:this={heroText} class="split w-full px-8 lg:pt-32 pb-8 lg:order-first order-last">
 			<p class=" mb-4 text-5xl">
 				Hi, I’m <span class=" font-semibold text-amber-600">Himanshu Thakur</span>
 			</p>
@@ -88,9 +88,9 @@
 				>
 			</div>
 		</div>
-		<div class="relative z-[10] flex h-full w-full items-center justify-center">
-			<figure class=" flex h-full w-full items-center justify-center" id="heroImg">
-				<img src="/images/mani.JPG" alt="user" class="h-full min-h-screen w-full object-cover" />
+		<div class="relative z-[10] flex h-full w-full items-center justify-center pt-32 lg:pt-0 px-4 lg:px-0">
+			<figure class=" flex h-auto w-[320px] h-[320px] lg:h-full lg:w-full items-center justify-center" id="heroImg">
+				<img src="/images/mani.JPG" alt="user" class="h-full lg:min-h-screen w-full object-cover rounded-full" />
 			</figure>
 		</div>
 	</div>
