@@ -64,11 +64,18 @@
 			scrollTrigger: {
 				trigger: '#projectGrid',
 				scroller: 'body',
-				start: 'top 50%',
+				start: 'top 90%',
 				end: 'top 0',
 				scrub: 2
 			}
 		});
+
+
+		tl2.from(
+			'#projectGrid',
+			{ y: 300, duration: 0.5, }
+		);
+		
 
 		// tl2.from(
 		// 	'#projectGrid .projcard.leftCard',
@@ -188,7 +195,7 @@
 						onclick={() => goToProject(project?.id)}
 						type="button"
 						data-id={project.id}
-						class="group projcard relative block overflow-hidden rounded-xl shadow-lg w-full"
+						class="group projcard relative block overflow-hidden rounded-xl shadow-lg w-full cursor-pointer"
 						class:leftCard={i % 2 === 0}
 						class:rightCard={i % 2 !== 0}
 						id={`projcard_${i}`}
