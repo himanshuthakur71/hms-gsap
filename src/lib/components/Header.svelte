@@ -1,12 +1,11 @@
 <script lang="ts">
 	import gsap from 'gsap';
 	import { onDestroy, onMount } from 'svelte';
+	import Scrollbar from './Scrollbar.svelte';
 
 	let tl001: any = $state(null);
 
 	onMount(() => {
-
-
 		tl001 = gsap.timeline();
 
 		tl001.to('.text-001 span', {
@@ -24,12 +23,10 @@
 		tl001.pause();
 	});
 
-
 	onDestroy(() => {
-		tl001 = null
-	})
+		tl001 = null;
+	});
 </script>
-
 
 <header
 	class="fixed top-0 left-0 z-[999] flex h-[72px] w-full items-center justify-between border-b border-[#0000001a]"
@@ -42,7 +39,7 @@
 		>
 			<img src="/images/signature.svg" alt="" class=" h-[40px] w-[130px]" />
 		</a>
-		<div class="w-full max-w-[280px] px-4 hidden md:block">
+		<div class="hidden w-full max-w-[280px] px-4 md:block">
 			<p class=" line-clamp-[115%] text-[11px] text-[#333335]">
 				Crafting sleek, high-performance web experiences with code and creativity.
 			</p>
@@ -50,7 +47,6 @@
 	</div>
 
 	<div class="flex h-full items-center">
-
 		<a
 			href="/project"
 			class="flex w-[146.4px] flex-col justify-between border-l border-dark-10 p-4"
@@ -101,4 +97,6 @@
 			</div>
 		</a>
 	</div>
+
+	<Scrollbar />
 </header>
