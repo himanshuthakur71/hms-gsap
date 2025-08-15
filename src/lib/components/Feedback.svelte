@@ -27,7 +27,7 @@
 			scrollTrigger: {
 				trigger: sectionEl,
 				start: 'top top',
-				end: '+=70%', // scroll distance
+				end: '+=80%', // scroll distance
 				pin: bgEl,
 				scrub: true
 			}
@@ -58,9 +58,9 @@
 	});
 </script>
 
-<section bind:this={sectionEl} class="relative bg-neutral-900 text-white">
+<section bind:this={sectionEl} class="relative  text-white">
 	<!-- Sticky / pinned background -->
-	<div bind:this={bgEl} class=" relative h-full min-h-screen w-full">
+	<div bind:this={bgEl} class=" relative h-full h-screen-screen w-full">
 		<img
 			src="https://images.prismic.io/miux-studio/aDYL_idWJ-7kSmR-_Testimonial.jpg?auto=format,compress"
 			alt="Client Feedback"
@@ -77,7 +77,7 @@
 	</div>
 
 	<!-- Cards container -->
-	<div class="space-y-1 relative z-10 -mt-[50vh] lg:-mt-[80vh] flex flex-col items-center">
+	<div class="space-y-1 relative z-10 -mt-[50vh] lg:-mt-[100vh] flex flex-col items-center px-4">
 		<div bind:this={card1} class="w-full max-w-3xl rounded-lg bg-white p-6 text-black shadow-lg">
 			<div class="flex gap-4">
 				<img
