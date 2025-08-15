@@ -64,7 +64,7 @@
 			scrollTrigger: {
 				trigger: '#projectGrid',
 				scroller: 'body',
-				start: 'top 90%',
+				start: 'top 100%',
 				end: 'top 0',
 				scrub: 2
 			}
@@ -170,7 +170,7 @@
 	<div class="px-4">
 		<section class="w-full pt-32">
 			<h1 bind:this={headingEl} class=" text-6xl lg:text-[256px] leading-none font-bold">Work</h1>
-			<p bind:this={paraEl} class="mt-8 max-w-3xl text-lg leading-relaxed">
+			<p bind:this={paraEl} class="mt-8 max-w-5xl text-lg leading-relaxed">
 				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum suscipit officiis temporibus
 				non explicabo in aliquid maiores ab nam quos architecto, voluptates nisi enim quod natus,
 				asperiores culpa dolorem dignissimos. Perferendis, laborum, numquam ducimus repudiandae
@@ -179,7 +179,7 @@
 		</section>
 
 		<!-- Projects Section -->
-		<section class="mt-24 grid gap-x-32 gap-y-16  md:grid-cols-2" id="projectGrid">
+		<section class="grid gap-x-32 gap-y-16  md:grid-cols-2" id="projectGrid">
 			{#each projects as project, i}
 				<div class="w-full">
 					<!-- <button type="button" onclick={() => goToProject(project?.id)}>
@@ -217,7 +217,7 @@
 							class="absolute inset-0 bg-black/40 transition-colors group-hover:bg-black/60"
 						></div>
 						<div class="absolute bottom-4 left-4 text-white">
-							<h3 class="text-2xl font-semibold">{project.title}</h3>
+							<h3 class="text-2xl font-semibold text-left">{project.title}</h3>
 							<p class="mt-1 max-w-xs text-sm">{project.description}</p>
 						</div>
 					</button>
@@ -227,8 +227,4 @@
 	</div>
 </section>
 
-<style>
-	.inner {
-		display: inline-block;
-	}
-</style>
+
