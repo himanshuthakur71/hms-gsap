@@ -89,8 +89,8 @@
 </script>
 
 
-<section bind:this={sectionEl45} class="w-full py-32">
-	<div class="grid w-full grid-cols-1 px-4 lg:grid-cols-2">
+<section bind:this={sectionEl45} class="w-full py-8 lg:py-32">
+	<div class="grid w-full grid-cols-1 px-4 lg:grid-cols-2 gap-y-8 lg:gap-y-0">
 		<div class="w-full">
 			<ul class="w-full max-w-[356px] border-t-[1px] border-dark-10" id="listElc">
 				{#each Array(4) as _, i}
@@ -112,7 +112,7 @@
 				</span>
 			</p>
 
-			<h4 class=" mt-[20px] mb-[25px] text-[51.2px] leading-[64px] text-brand-dark" style="">
+			<h4 class=" mt-[20px] mb-[25px] text-[32px] lg:text-[51.2px] lg:leading-[64px] text-brand-dark" style="">
 				<div class="lineParent" style="display: block; text-align: start; position: relative;">
 					<div
 						class="lineChild"
@@ -135,7 +135,7 @@
 				</div>
 			</h4>
 
-			<div class=" mb-[96px] w-full max-w-[356px] text-[16px] text-dark-50" style="">
+			<div class=" mb-6 lg:mb-[96px] w-full max-w-[356px] text-[16px] text-dark-50" style="">
 				<div class="lineParent" style="display: block; text-align: start; position: relative;">
 					<div
 						class="lineChild"
