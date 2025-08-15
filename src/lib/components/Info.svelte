@@ -142,9 +142,9 @@
 		</div>
 
 		<div class="h-full w-full">
-			<div class=" grid h-full w-full grid-cols-1 pt-[72px] lg:grid-cols-3">
+			<div class=" grid h-full w-full grid-cols-1 lg:pt-[72px] lg:grid-cols-3">
 				<div
-					class=" animate-card group relative h-full w-full border-l border-[#0000001a] text-black transition-all duration-300 hover:text-white"
+					class=" animate-card group relative h-full w-full border-y pb-4 lg:pb-0 lg:border-y-0 border-l border-[#0000001a] text-black transition-all duration-300 hover:text-white"
 					onmouseenter={() => onMouseOver('#img1')}
 					onmouseleave={() => onMouseLeave('#img1')}
 					role="presentation"
@@ -156,7 +156,7 @@
 						id="img1"
 					/>
 					<div class="relative px-4">
-						<span class=" block text-[320px] font-bold">1</span>
+						<span class=" block text-[200px] lg:text-[320px] font-bold">1</span>
 						<p class=" text-4xl leading-10 font-semibold">UX/UI <br />Design</p>
 						<p class="mt-4 font-extralight">
 							Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae ipsum soluta aliquam.
@@ -164,7 +164,7 @@
 					</div>
 				</div>
 				<div
-					class="animate-card group relative h-full w-full border-l border-[#0000001a] text-black transition-all duration-300 hover:text-white"
+					class="animate-card group relative h-full w-full border-y pb-4 lg:pb-0 lg:border-y-0 border-l border-[#0000001a] text-black transition-all duration-300 hover:text-white"
 					onmouseenter={() => onMouseOver('#img2')}
 					onmouseleave={() => onMouseLeave('#img2')}
 					role="presentation"
@@ -176,7 +176,7 @@
 						id="img2"
 					/>
 					<div class="relative px-4">
-						<span class="block text-[320px] font-bold">2</span>
+						<span class="block text-[200px] lg:text-[320px] font-bold">2</span>
 						<p class="text-4xl leading-10 font-semibold">
 							Dashboard<br />Design
 						</p>
@@ -187,7 +187,7 @@
 				</div>
 
 				<div
-					class="animate-card group relative h-full w-full border-l border-[#0000001a] text-black transition-all duration-300 hover:text-white"
+					class="animate-card group relative h-full w-full border-y pb-4 lg:pb-0 lg:border-y-0 border-l border-[#0000001a] text-black transition-all duration-300 hover:text-white"
 					onmouseenter={() => onMouseOver('#img3')}
 					onmouseleave={() => onMouseLeave('#img3')}
 					role="presentation"
@@ -199,7 +199,7 @@
 						id="img3"
 					/>
 					<div class="relative px-4">
-						<span class=" block text-[320px] font-bold">3</span>
+						<span class=" block text-[200px] lg:text-[320px] font-bold">3</span>
 						<p class=" text-4xl leading-10 font-semibold">Website<br />Design</p>
 						<p class="mt-4 font-extralight">
 							Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae ipsum soluta aliquam.
