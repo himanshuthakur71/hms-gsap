@@ -189,7 +189,7 @@
 	</div>
 
 	<!-- Dark overlay -->
-	<div class="absolute inset-0 h-full w-full bg-black/70"></div>
+	<div class="absolute inset-0 h-full w-full bg-black/40"></div>
 
 	<!-- Fixed Overlay -->
 	{#if activeProject}
