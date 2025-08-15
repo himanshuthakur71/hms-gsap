@@ -197,7 +197,7 @@
 			class="fixed inset-0 z-50 flex h-full min-h-screen w-full items-center justify-between px-4 transition-opacity duration-300"
 		>
 			<!-- Project name -->
-			<div bind:this={projectNameEl} class="absolute text-3xl font-semibold text-white">
+			<div bind:this={projectNameEl} class=" absolute pl-[34%]  top-[23%] text-center lg:top-[unset] lg:pl-0 lg:left-4 text-lg lg:text-3xl font-semibold text-white">
 				{activeProject.name}
 			</div>
 
