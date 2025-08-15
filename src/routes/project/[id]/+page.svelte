@@ -73,7 +73,7 @@
 	});
 </script>
 
-<section class="w-full pt-[calc(38.4px+72px)]">
+<section class="w-full pt-[80px] lg:pt-[calc(38.4px+72px)]">
 	<div class="px-4">
 		<div class="grid w-full grid-cols-1 items-start gap-y-6 lg:grid-cols-[500px_1fr]">
 			<div>
@@ -87,24 +87,24 @@
 
 			<div class="flex flex-wrap">
 				<div class="metaInfo w-full max-w-[290px] shrink-0">
-					<p class="mb-[20px] text-[20px] text-dark-40"><span>Client</span></p>
-					<p class="mb-[20px] overflow-hidden text-[20px]"><span>xxClient Namexx</span></p>
+					<p class="lg:mb-[20px] text-[16px] lg:text-[20px] text-dark-40"><span>Client</span></p>
+					<p class=" mb-[10px] lg:mb-[20px] overflow-hidden text-[16px] lg:text-[20px]"><span>xxClient Namexx</span></p>
 				</div>
 
 				<div class="metaInfo w-full max-w-[290px] shrink-0">
-					<p class="mb-[20px] text-[20px] text-dark-40"><span>Services</span></p>
-					<p class="mb-[20px] overflow-hidden text-[20px]"><span>Lorem, ipsum.</span></p>
+					<p class="lg:mb-[20px] text-[16px] lg:text-[20px] text-dark-40"><span>Services</span></p>
+					<p class="mb-[10px]  lg:mb-[20px] overflow-hidden text-[16px] lg:text-[20px]"><span>Lorem, ipsum.</span></p>
 				</div>
 
 				<div class="metaInfo w-full max-w-[290px] shrink-0">
-					<p class="mb-[20px] text-[20px] text-dark-40"><span>Date</span></p>
-					<p class="mb-[20px] overflow-hidden text-[20px]"><span>Month YYYY</span></p>
+					<p class="lg:mb-[20px] text-[16px] lg:text-[20px] text-dark-40"><span>Date</span></p>
+					<p class="mb-[10px] lg:mb-[20px] overflow-hidden text-[16px] lg:text-[20px]"><span>Month YYYY</span></p>
 				</div>
 			</div>
 		</div>
 
-		<div class="relative mt-[200px] mb-[40px] lg:pl-[500px]">
-			<h1 class="projectTitle overflow-hidden text-[96px] inline-block">
+		<div class="relative mt-4 lg:mt-[200px] mb-[10px] lg:mb-[40px] lg:pl-[500px]">
+			<h1 class="projectTitle overflow-hidden text-3xl lg:text-[96px] inline-block">
 				<span id="projectTitle">{project?.title}</span>
 			</h1>
 		</div>
@@ -120,8 +120,9 @@
 		</figure>
 	</div>
 
-	<div class="mt-[140px] px-4">
+	<div class="mt-[40px] lg:mt-[140px] px-4">
 		<p class="text-[18px] lg:text-[20px] text-brand-ac-2">Project Overview</p>
-		<p class="text-[32px] lg:text-[64px]"><span>{project?.description}</span></p>
+		<p class="text-[22px] lg:text-[64px]"><span>{project?.description}</span></p>
+
 	</div>
 </section>
