@@ -147,12 +147,13 @@
 		gsap
 			.to(`#projectImage_${id}`, {
 				position: 'fixed',
-				inset: '0',
+				let: 0,
+				right: 0,
 				zIndex: '999',
 				duration: 1.4,
 				// width: '100vw',
 				// hight: '100vh',
-				yPercent: -20
+				yPercent: -100
 				// delay: 0.4,
 				// ease: 'power2.out'
 			})
